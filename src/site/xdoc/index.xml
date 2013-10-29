@@ -9,9 +9,9 @@
   </properties>
 
   <body>
-    <subsection name="parasol">
+    <subsection name="ieee754b16">
       <p>
-        The <var>io7m-ieee754b16</var> package implements a set of functions
+        The <var>ieee754b16</var> package implements a set of functions
         for converting to and from the <tt>binary16</tt> ("half-precision float")
         type specified by <tt>IEEE 754:2008</tt>.
       </p>
