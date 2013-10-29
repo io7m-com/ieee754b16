@@ -45,6 +45,16 @@
     </site>
   </distributionManagement>
 
+  <mailingLists>
+    <mailingList>
+      <name>io7m-ieee754b16</name>
+      <subscribe>io7m-ieee754b16-join@lists.io7m.com</subscribe>
+      <unsubscribe>io7m-ieee754b16-leave@lists.io7m.com</unsubscribe>
+      <post>io7m-ieee754b16@lists.io7m.com</post>
+      <archive>http://lists.io7m.com/io7m-ieee754b16/archive</archive>
+    </mailingList>
+  </mailingLists>
+
   <prerequisites>
     <maven>2.2.1</maven>
   </prerequisites>
