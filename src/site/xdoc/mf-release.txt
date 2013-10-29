@@ -1,0 +1,6 @@
+2013-10-29:io7m-ieee754b16-0.1.0.jar:8305
+2013-10-29:io7m-ieee754b16-0.1.0-tests.jar:9593
+2013-10-29:io7m-ieee754b16-0.1.0-javadoc.jar:38823
+2013-10-29:io7m-ieee754b16-0.1.0-sources.jar:6639
+2013-10-29:io7m-ieee754b16-0.1.0-documentation.zip:54917
+2013-10-29:io7m-ieee754b16-0.1.0.zip:51361
