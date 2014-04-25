@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="io7m-ieee754b16">
+<project name="io7m-ieee754b16-core">
 
   <body>
     <menu ref="reports"/>
