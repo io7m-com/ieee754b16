@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
     <artifactId>io7m-ieee754b16</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
   </parent>
   <artifactId>io7m-ieee754b16-core</artifactId>
 
