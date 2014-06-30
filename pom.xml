@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.io7m.ieee754b16</groupId>
   <artifactId>io7m-ieee754b16</artifactId>
-  <version>0.2.0</version>
+  <version>1.0.0</version>
 
   <packaging>pom</packaging>
   <name>io7m-ieee754b16</name>

@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
     <artifactId>io7m-ieee754b16</artifactId>
-    <version>0.2.0</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>io7m-ieee754b16-core</artifactId>
 
@@ -85,16 +85,16 @@
       <version>0.9.9-RC1</version>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>com.io7m.jnull</groupId>
       <artifactId>io7m-jnull-core</artifactId>
-      <version>0.3.0</version>
+      <version>[1.0.0, 2.0.0)</version>
     </dependency>
     <dependency>
       <groupId>com.io7m.junreachable</groupId>
       <artifactId>io7m-junreachable-core</artifactId>
-      <version>0.3.0</version>
+      <version>[1.0.0, 2.0.0)</version>
     </dependency>
   </dependencies>
 
