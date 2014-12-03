@@ -3,6 +3,16 @@
   <c:project>io7m-ieee754b16</c:project>
 
   <c:release c:ticket-system="com.io7m.fossil.ieee754b16">
+    <c:date>2014-12-03</c:date>
+    <c:version>1.0.1</c:version>
+    <c:item>
+      <c:date>2014-12-03</c:date>
+      <c:type-code-fix/>
+      <c:summary>Ensure source jars for unit tests are created.</c:summary>
+    </c:item>
+  </c:release>
+
+  <c:release c:ticket-system="com.io7m.fossil.ieee754b16">
     <c:date>2014-06-30</c:date>
     <c:version>1.0.0</c:version>
     <c:item>
