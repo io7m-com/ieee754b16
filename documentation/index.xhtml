@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>io7m-ieee754b16 1.0.0 Documentation</title><link rel="stylesheet" type="text/css" href="jstructural-2.0.0-layout.css"/><link rel="stylesheet" type="text/css" href="jstructural-2.0.0-colour.css"/><link rel="stylesheet" type="text/css" href="documentation.css"/></head><body><div class="st200_body"><div class="brand">
+  <div class="brand_left">
+    <a href="http://io7m.com/">io7m</a>
+  </div>
+  <div class="brand_right">
+    <a href="http://io7m.github.io/ieee754b16">io7m-ieee754b16</a> 1.0.0
+  </div>
+</div><div class="st200_document_title">io7m-ieee754b16 1.0.0 Documentation</div><ul class="st200_contents st200_document_contents"><li class="st200_contents_item st200_contents_item1 st200_contents_item_part"><a href="#st200_p1">1. Package Information</a><ul class="st200_contents st200_part_contents"><li class="st200_contents_item st200_contents_item2 st200_contents_item_section"><a href="#st200_p1s1">1.1. Orientation</a></li><li class="st200_contents_item st200_contents_item2 st200_contents_item_section"><a href="#st200_p1s2">1.2. Installation</a></li><li class="st200_contents_item st200_contents_item2 st200_contents_item_section"><a href="#st200_p1s3">1.3. Platform Specific Issues</a></li><li class="st200_contents_item st200_contents_item2 st200_contents_item_section"><a href="#st200_p1s4">1.4. License</a></li></ul></li><li class="st200_contents_item st200_contents_item1 st200_contents_item_part"><a href="#st200_p2">2. Usage</a><ul class="st200_contents st200_part_contents"><li class="st200_contents_item st200_contents_item2 st200_contents_item_section"><a href="#st200_p2s1">2.1. Usage</a></li></ul></li><li class="st200_contents_item st200_contents_item1 st200_contents_item_part"><a href="#st200_p3">3. API Reference</a><ul class="st200_contents st200_part_contents"><li class="st200_contents_item st200_contents_item2 st200_contents_item_section"><a href="#st200_p3s1">3.1. Javadoc</a></li></ul></li></ul><div class="st200_part_container"><div class="st200_part_title_number"><a id="st200_p1" href="#st200_p1">1</a></div><div class="st200_part_title">Package Information</div><ul class="st200_contents st200_part_contents_outer st200_part_contents"><li class="st200_contents_item st200_contents_item1 st200_contents_item_section"><a href="#st200_p1s1">1.1. Orientation</a><ul class="st200_contents st200_section_contents"><li class="st200_contents_item st200_contents_item2 st200_contents_item_subsection"><a href="#st200_p1s1ss1">1.1.1. Overview</a></li></ul></li><li class="st200_contents_item st200_contents_item1 st200_contents_item_section"><a href="#st200_p1s2">1.2. Installation</a><ul class="st200_contents st200_section_contents"><li class="st200_contents_item st200_contents_item2 st200_contents_item_subsection"><a href="#st200_p1s2ss1">1.2.1. Source compilation</a></li><li class="st200_contents_item st200_contents_item2 st200_contents_item_subsection"><a href="#st200_p1s2ss2">1.2.2. Maven</a></li></ul></li><li class="st200_contents_item st200_contents_item1 st200_contents_item_section"><a href="#st200_p1s3">1.3. Platform Specific Issues</a></li><li class="st200_contents_item st200_contents_item1 st200_contents_item_section"><a href="#st200_p1s4">1.4. License</a></li></ul><div class="st200_section_container"><div class="st200_section_title_number"><a id="st200_p1s1" href="#st200_p1s1">1.1</a></div><div class="st200_section_title">Orientation</div><div class="st200_subsection_container"><div class="st200_subsection_title_number"><a id="st200_p1s1ss1" href="#st200_p1s1ss1">1.1.1</a></div><div class="st200_subsection_title">Overview</div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p1s1ss1pg1" href="#st200_p1s1ss1pg1">1</a></div><div class="st200_paragraph">
+          The <span class="st200_term package">ieee754b16</span> package implements
+          a set of functions for converting floating point values to and
+          from the <span class="st200_term type">binary16</span> type defined by
+          <a class="st200_link_external" href="http://en.wikipedia.org/wiki/IEEE_754-2008">IEEE 754:2008</a>.
+        </div></div></div></div><div class="st200_section_container"><div class="st200_section_title_number"><a id="st200_p1s2" href="#st200_p1s2">1.2</a></div><div class="st200_section_title">Installation</div><div class="st200_subsection_container"><div class="st200_subsection_title_number"><a id="st200_p1s2ss1" href="#st200_p1s2ss1">1.2.1</a></div><div class="st200_subsection_title">Source compilation</div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p1s2ss1pg1" href="#st200_p1s2ss1pg1">1</a></div><div class="st200_paragraph">
+          The project can be compiled and installed with
+          <a class="st200_link_external" href="http://maven.apache.org">Maven</a>:
+        </div></div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p1s2ss1pg2" href="#st200_p1s2ss1pg2">2</a></div><div class="st200_paragraph">
+          <pre class="st200_verbatim example">$ mvn -C clean install</pre>
+        </div></div></div><div class="st200_subsection_container"><div class="st200_subsection_title_number"><a id="st200_p1s2ss2" href="#st200_p1s2ss2">1.2.2</a></div><div class="st200_subsection_title">Maven</div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p1s2ss2pg1" href="#st200_p1s2ss2pg1">1</a></div><div class="st200_paragraph">
+          Regular releases are made to the
+          <a class="st200_link_external" href="http://search.maven.org/#search%7Cga%7C1%7Cio7m-ieee754b16">Central Repository</a>,
+          so it's possible to use the <span class="st200_term package">io7m-ieee754b16</span>
+          package in your projects with the following Maven dependency:
+        </div></div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p1s2ss2pg2" href="#st200_p1s2ss2pg2">2</a></div><div class="st200_paragraph">
+          <pre class="st200_verbatim example">&lt;dependency&gt;
+  &lt;groupId&gt;com.io7m.ieee754b16&lt;/groupId&gt;
+  &lt;artifactId&gt;io7m-ieee754b16-core&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</pre>
+        </div></div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p1s2ss2pg3" href="#st200_p1s2ss2pg3">3</a></div><div class="st200_paragraph">
+          All <a class="st200_link_external" href="http://io7m.com">io7m.com</a>
+          packages use Semantic Versioning
+          <span class="st200_footnote_reference"><a id="st200_fn_0_ref" href="#st200_fn_0">[0]</a></span>, which implies that it is always safe to use version ranges
+          with an exclusive upper bound equal to the next major version - the API of
+          the package will not change in a backwards-incompatible manner before the
+          next major version.
+        </div></div></div></div><div class="st200_section_container"><div class="st200_section_title_number"><a id="st200_p1s3" href="#st200_p1s3">1.3</a></div><div class="st200_section_title">Platform Specific Issues</div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p1s3pg1" href="#st200_p1s3pg1">1</a></div><div class="st200_paragraph">
+        There are currently no known platform-specific issues.
+      </div></div></div><div class="st200_section_container"><div class="st200_section_title_number"><a id="st200_p1s4" href="#st200_p1s4">1.4</a></div><div class="st200_section_title">License</div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p1s4pg1" href="#st200_p1s4pg1">1</a></div><div class="st200_paragraph">
+        All files distributed with the <span class="st200_term package">io7m-ieee754b16</span>
+        package are placed under the following license:
+        <pre class="st200_verbatim license">Copyright © 2014 &lt;code@io7m.com&gt; http://io7m.com
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+        </pre>
+      </div></div></div></div><div class="st200_part_container"><div class="st200_part_title_number"><a id="st200_p2" href="#st200_p2">2</a></div><div class="st200_part_title">Usage</div><ul class="st200_contents st200_part_contents_outer st200_part_contents"><li class="st200_contents_item st200_contents_item1 st200_contents_item_section"><a href="#st200_p2s1">2.1. Usage</a></li></ul><div class="st200_section_container"><div class="st200_section_title_number"><a id="st200_p2s1" href="#st200_p2s1">2.1</a></div><div class="st200_section_title">Usage</div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p2s1pg1" href="#st200_p2s1pg1">1</a></div><div class="st200_paragraph">
+        The package uses the <span class="st200_term type">char</span> type to store
+        values of the <span class="st200_term type">binary16</span> type. To convert
+        a double-precision value <span class="st200_term constant">32.0</span> to
+        <span class="st200_term type">binary16</span> format:
+      </div></div><div class="st200_formal_item"><div class="st200_formal_item_title"><a id="st200_p2s1fo1" href="#st200_p2s1fo1">2.1.1. Packing</a></div><pre class="st200_verbatim">
+final char k = Binary16.packDouble(32.0);
+</pre></div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p2s1pg2" href="#st200_p2s1pg2">2</a></div><div class="st200_paragraph">
+        To unpack values from the <span class="st200_term type">binary16</span> format:
+      </div></div><div class="st200_formal_item"><div class="st200_formal_item_title"><a id="st200_p2s1fo2" href="#st200_p2s1fo2">2.1.2. Packing</a></div><pre class="st200_verbatim">
+final double r = Binary16.unpackDouble(k);
+</pre></div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p2s1pg3" href="#st200_p2s1pg3">3</a></div><div class="st200_paragraph">
+        Equivalent functions exist for the single precision 
+        <span class="st200_term type">float</span> type. Consult the
+        <a class="st200_link_external" href="apidocs">Javadoc</a> for
+        the full list.
+      </div></div></div></div><div class="st200_part_container"><div class="st200_part_title_number"><a id="st200_p3" href="#st200_p3">3</a></div><div class="st200_part_title">API Reference</div><ul class="st200_contents st200_part_contents_outer st200_part_contents"><li class="st200_contents_item st200_contents_item1 st200_contents_item_section"><a href="#st200_p3s1">3.1. Javadoc</a></li></ul><div class="st200_section_container"><div class="st200_section_title_number"><a id="st200_p3s1" href="#st200_p3s1">3.1</a></div><div class="st200_section_title">Javadoc</div><div class="st200_paragraph_container"><div class="st200_paragraph_number"><a id="st200_p3s1pg1" href="#st200_p3s1pg1">1</a></div><div class="st200_paragraph">
+        API documentation for the package is provided via the
+        included <a class="st200_link_external" href="apidocs">Javadoc</a>.
+      </div></div></div></div><div class="st200_footnotes"><hr/><div class="st200_footnote_container"><div class="st200_footnote_number">[<a id="st200_fn_0" href="#st200_fn_0_ref">0</a>]</div><div class="st200_footnote_body">
+            <a class="st200_link_external" href="http://semver.org">http://semver.org</a>
+          </div></div></div></div></body></html>
