@@ -5,19 +5,19 @@
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
   <properties>
-    <title>io7m-jranges</title>
+    <title>io7m-ieee754b16</title>
   </properties>
 
   <body>
-    <subsection name="jranges">
-      <p>The <var>jranges</var> package implements a set of functions
-      and types for dealing with ranges and intervals.</p>
+    <subsection name="ieee754b16">
+      <p>The <var>ieee754b16</var> package implements a set of
+      functions for converting to and from the IEEE 754 binary16
+      type.</p>
     </subsection>
     <subsection name="Features">
       <ul>
-        <li>Immutable range types, for specifying ranges over all the available integral and floating point types.</li>
-        <li>Functions for checking that values fall within given ranges.</li>
-        <li>Full unit test coverage.</li>
+        <li>98.3% unit test coverage (100%, minus an unreachable private constructor)</li>
+        <li>Fully documented.</li>
         <li>ISC license.</li>
       </ul>
     </subsection>
