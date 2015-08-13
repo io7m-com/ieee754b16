@@ -10,82 +10,24 @@
     <artifactId>io7m-ieee754b16</artifactId>
     <version>1.0.0</version>
   </parent>
-  <artifactId>io7m-ieee754b16-core</artifactId>
+  <artifactId>io7m-ieee754b16-checkstyle</artifactId>
 
   <packaging>jar</packaging>
-  <description>Functions for converting to/from IEE754 binary16 values (Core)</description>
+  <description>Functions for converting to/from IEE754 binary16 values (Checkstyle policy)</description>
   <url>http://io7m.github.io/ieee754b16</url>
   <name>${project.artifactId}</name>
 
-  <dependencies>
-    <!-- Test suite -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-      <version>4.11</version>
-    </dependency>
-    <dependency>
-      <groupId>org.reflections</groupId>
-      <artifactId>reflections</artifactId>
-      <version>0.9.9-RC1</version>
-      <scope>test</scope>
-    </dependency>
+  <scm>
+    <url>${project.parent.scm.url}</url>
+    <connection>${project.parent.scm.connection}</connection>
+    <developerConnection>${project.parent.scm.developerConnection}</developerConnection>
+  </scm>
 
-    <dependency>
-      <groupId>com.io7m.jnull</groupId>
-      <artifactId>io7m-jnull-core</artifactId>
-      <version>[1.0.0, 2.0.0)</version>
-    </dependency>
-    <dependency>
-      <groupId>com.io7m.junreachable</groupId>
-      <artifactId>io7m-junreachable-core</artifactId>
-      <version>[1.0.0, 2.0.0)</version>
-    </dependency>
+  <dependencies>
   </dependencies>
 
   <build>
     <plugins>
-      <!-- Redirect test output -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.18.1</version>
-        <configuration>
-          <redirectTestOutputToFile>true</redirectTestOutputToFile>
-        </configuration>
-      </plugin>
-
-      <!-- Check style -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.15</version>
-        <dependencies>
-          <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>io7m-ieee754b16-checkstyle</artifactId>
-            <version>${project.version}</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <id>validate</id>
-            <phase>validate</phase>
-            <configuration>
-              <configLocation>com/io7m/ieee754b16/checkstyle/checkstyle.xml
-              </configLocation>
-              <encoding>UTF-8</encoding>
-              <consoleOutput>true</consoleOutput>
-              <failsOnError>true</failsOnError>
-            </configuration>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
       <!-- Produce custom manifest in jar files -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -165,21 +107,6 @@
                 </manifestEntries>
               </archive>
             </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- Enable code coverage for unit tests -->
-      <plugin>
-        <groupId>org.sonatype.maven.plugin</groupId>
-        <artifactId>emma-maven-plugin</artifactId>
-        <version>1.2</version>
-        <executions>
-          <execution>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>instrument</goal>
-            </goals>
           </execution>
         </executions>
       </plugin>
