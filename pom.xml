@@ -56,8 +56,8 @@
 
   <distributionManagement>
     <site>
-      <id>io7m</id>
-      <name>io7m.com</name>
+      <id>GitHub</id>
+      <name>github.com</name>
       <url>${project.url}</url>
     </site>
     <repository>
