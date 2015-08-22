@@ -57,7 +57,7 @@
   <distributionManagement>
     <site>
       <id>GitHub</id>
-      <name>github.com</name>
+      <name>GitHub</name>
       <url>${project.url}</url>
     </site>
     <repository>
