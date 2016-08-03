@@ -1,2 +1,4 @@
-.fslckout
+*.iml
+.idea
+pom.xml.versionsBackup
 target
