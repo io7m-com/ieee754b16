@@ -8,81 +8,36 @@
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
     <artifactId>io7m-ieee754b16</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
   </parent>
   <artifactId>io7m-ieee754b16-documentation</artifactId>
 
   <packaging>jar</packaging>
+  <name>io7m-ieee754b16-documentation</name>
   <description>Functions for converting to/from IEE754 binary16 values (Documentation)</description>
-  <url>http://io7m.github.io/ieee754b16</url>
-  <name>${project.artifactId}</name>
+  <url>http://io7m.github.io/ieee754b16/</url>
+
+  <scm>
+    <url>${project.parent.scm.url}</url>
+    <connection>${project.parent.scm.connection}</connection>
+    <developerConnection>${project.parent.scm.developerConnection}</developerConnection>
+  </scm>
 
   <dependencies>
-    <dependency>
-      <groupId>com.io7m.jnull</groupId>
-      <artifactId>io7m-jnull-core</artifactId>
-      <version>[1.0.0, 2.0.0)</version>
-    </dependency>
-
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>io7m-ieee754b16-core</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.io7m.jnull</groupId>
+      <artifactId>io7m-jnull-core</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
-      <!-- Produce custom manifest in jar files -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifestEntries>
-              <Specification-Title>${project.name}</Specification-Title>
-              <Specification-Version>${project.version}</Specification-Version>
-              <Specification-Vendor>io7m.com</Specification-Vendor>
-              <Implementation-Title>${project.name}</Implementation-Title>
-              <Implementation-Version>${project.version}</Implementation-Version>
-              <Implementation-Vendor>io7m.com</Implementation-Vendor>
-              <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-              <Built-By>io7m</Built-By>
-              <Sealed>true</Sealed>
-            </manifestEntries>
-          </archive>
-        </configuration>
-      </plugin>
-
-      <!-- Create source jar -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-              <goal>test-jar-no-fork</goal>
-            </goals>
-            <configuration>
-              <archive>
-                <manifestEntries>
-                  <Specification-Title>${project.name}</Specification-Title>
-                  <Specification-Version>${project.version}</Specification-Version>
-                  <Specification-Vendor>io7m.com</Specification-Vendor>
-                  <Implementation-Title>${project.name}</Implementation-Title>
-                  <Implementation-Version>${project.version}</Implementation-Version>
-                  <Implementation-Vendor>io7m.com</Implementation-Vendor>
-                  <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-                  <Built-By>io7m</Built-By>
-                </manifestEntries>
-              </archive>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <!-- Copy documentation resources into build directory -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -174,7 +129,7 @@
             <id>javadoc-aggregate</id>
             <phase>package</phase>
             <goals>
-              <goal>javadoc</goal>
+              <goal>javadoc-no-fork</goal>
             </goals>
             <configuration>
               <bottom><![CDATA[Copyright &#169; {currentYear} &lt;code@io7m.com&gt; http://io7m.com]]></bottom>
@@ -217,7 +172,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>truezip-maven-plugin</artifactId>
-        <version>1.2</version>
         <inherited>false</inherited>
         <executions>
           <execution>

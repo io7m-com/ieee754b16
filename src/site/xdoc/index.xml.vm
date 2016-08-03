@@ -5,7 +5,7 @@
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
   <properties>
-    <title>io7m-ieee754b16</title>
+    <title>ieee754b16</title>
   </properties>
 
   <body>
@@ -18,6 +18,7 @@
       <ul>
         <li>98.3% unit test coverage (100%, minus an unreachable private constructor)</li>
         <li>Fully documented.</li>
+        <li><a href="https://www.osgi.org/">OSGi</a>-ready.</li>
         <li>ISC license.</li>
       </ul>
     </subsection>

@@ -3,6 +3,26 @@
   <c:project>io7m-ieee754b16</c:project>
 
   <c:release c:ticket-system="com.github.io7m.ieee754b16">
+    <c:date>2016-08-03</c:date>
+    <c:version>1.0.2</c:version>
+    <c:item>
+      <c:date>2016-08-03</c:date>
+      <c:type-code-fix/>
+      <c:summary>Update POM files to 2016 standards. Update plugins.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2016-08-03</c:date>
+      <c:type-code-fix/>
+      <c:summary>The packaged jar is now an OSGi bundle.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2016-08-03</c:date>
+      <c:type-code-change/>
+      <c:summary>The package will no longer compile on JDK 6 due to Checkstyle, but the compiled code is still JDK 6 compatible.</c:summary>
+    </c:item>
+  </c:release>
+
+  <c:release c:ticket-system="com.github.io7m.ieee754b16">
     <c:date>2015-08-13</c:date>
     <c:version>1.0.1</c:version>
     <c:item>
