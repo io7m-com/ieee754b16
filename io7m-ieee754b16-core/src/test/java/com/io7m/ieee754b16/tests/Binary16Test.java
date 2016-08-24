@@ -17,8 +17,15 @@
 package com.io7m.ieee754b16.tests;
 
 import com.io7m.ieee754b16.Binary16;
+import com.io7m.junreachable.UnreachableCodeException;
+import org.hamcrest.core.Is;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Tests for Binary16.
@@ -26,10 +33,11 @@ import org.junit.Test;
 
 public final class Binary16Test
 {
+  @Rule public final ExpectedException expected = ExpectedException.none();
+
   /**
    * Exponents in the range [-15, 16] are encoded and decoded correctly.
    */
-
 
   @Test
   public void testExponentIdentity()
@@ -645,9 +653,10 @@ public final class Binary16Test
   {
     final char one = (char) 0x4000;
     final double r = Binary16.unpackDouble(one);
-    System.out.println(String.format("%04x -> %f",
-                                     Integer.valueOf((int) one),
-                                     Double.valueOf(r)));
+    System.out.println(String.format(
+      "%04x -> %f",
+      Integer.valueOf((int) one),
+      Double.valueOf(r)));
     Assert.assertEquals(r, 2.0, 0.0);
   }
 
@@ -657,14 +666,14 @@ public final class Binary16Test
 
 
   @Test
-  public void
-  testUnpackDoubleTwoNegative()
+  public void testUnpackDoubleTwoNegative()
   {
     final char one = (char) 0xC000;
     final double r = Binary16.unpackDouble(one);
-    System.out.println(String.format("%04x -> %f",
-                                     Integer.valueOf((int) one),
-                                     Double.valueOf(r)));
+    System.out.println(String.format(
+      "%04x -> %f",
+      Integer.valueOf((int) one),
+      Double.valueOf(r)));
     Assert.assertEquals(r, -2.0, 0.0);
   }
 
@@ -686,8 +695,7 @@ public final class Binary16Test
 
 
   @Test
-  public void
-  testUnpackFloatNegativeInfinity()
+  public void testUnpackFloatNegativeInfinity()
   {
     Assert.assertTrue(Float.NEGATIVE_INFINITY == Binary16
       .unpackFloat(Binary16.NEGATIVE_INFINITY));
@@ -699,8 +707,7 @@ public final class Binary16Test
 
 
   @Test
-  public void
-  testUnpackFloatNegativeZero()
+  public void testUnpackFloatNegativeZero()
   {
     Assert.assertTrue(-0.0 == (double) Binary16.unpackFloat(Binary16.NEGATIVE_ZERO));
   }
@@ -711,8 +718,7 @@ public final class Binary16Test
 
 
   @Test
-  public void
-  testUnpackFloatOne()
+  public void testUnpackFloatOne()
   {
     final char one = (char) 0x3C00;
     final float r = Binary16.unpackFloat(one);
@@ -727,8 +733,7 @@ public final class Binary16Test
 
 
   @Test
-  public void
-  testUnpackFloatOneNegative()
+  public void testUnpackFloatOneNegative()
   {
     final char one = (char) 0xBC00;
     final float r = Binary16.unpackFloat(one);
@@ -737,5 +742,19 @@ public final class Binary16Test
     Assert.assertEquals((double) r, -1.0, 0.0);
   }
 
+  /**
+   * The constructor is unreachable.
+   */
 
+  @Test
+  public void testUnreachable()
+    throws Exception
+  {
+    final Constructor<Binary16> c = Binary16.class.getDeclaredConstructor();
+    c.setAccessible(true);
+
+    this.expected.expect(InvocationTargetException.class);
+    this.expected.expectCause(Is.isA(UnreachableCodeException.class));
+    c.newInstance();
+  }
 }

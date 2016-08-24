@@ -41,6 +41,11 @@ public final class Binary32
     BIAS = 127;
   }
 
+  private Binary32()
+  {
+    throw new UnreachableCodeException();
+  }
+
   /**
    * <p>
    * Extract and unbias the exponent of the given packed {@code float}
@@ -68,9 +73,9 @@ public final class Binary32
    * {@link Float#POSITIVE_INFINITY}, {@link Float#NEGATIVE_INFINITY}, or
    * {@code NaN}.</li>
    * </ul>
-   * 
-   * @param d
-   *          A floating point value
+   *
+   * @param d A floating point value
+   *
    * @return An unbiased exponent
    */
 
@@ -85,9 +90,9 @@ public final class Binary32
 
   /**
    * Retrieve the sign bit of the given floating point value, as an integer.
-   * 
-   * @param d
-   *          A floating point value
+   *
+   * @param d A floating point value
+   *
    * @return An unpacked sign bit
    */
 
@@ -102,11 +107,12 @@ public final class Binary32
    * <p>
    * Return the significand of the given floating point value as an integer.
    * </p>
-   * 
-   * @see Binary16#packSetSignificandUnchecked(int)
-   * @param d
-   *          A floating point value
+   *
+   * @param d A floating point value
+   *
    * @return An unpacked significand
+   *
+   * @see Binary16#packSetSignificandUnchecked(int)
    */
 
   public static int unpackGetSignificand(
@@ -114,10 +120,5 @@ public final class Binary32
   {
     final int b = Float.floatToRawIntBits(d);
     return b & Binary32.MASK_SIGNIFICAND;
-  }
-
-  private Binary32()
-  {
-    throw new UnreachableCodeException();
   }
 }

@@ -17,8 +17,15 @@
 package com.io7m.ieee754b16.tests;
 
 import com.io7m.ieee754b16.Binary32;
+import com.io7m.junreachable.UnreachableCodeException;
+import org.hamcrest.core.Is;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Tests for Binary32.
@@ -26,6 +33,8 @@ import org.junit.Test;
 
 public final class Binary32Test
 {
+  @Rule public final ExpectedException expected = ExpectedException.none();
+
   @Test
   public void testInfinityExponent()
   {
@@ -86,5 +95,21 @@ public final class Binary32Test
   public void testNaNSignificand()
   {
     Assert.assertTrue(Binary32.unpackGetSignificand(Float.NaN) > 0);
+  }
+
+  /**
+   * The constructor is unreachable.
+   */
+
+  @Test
+  public void testUnreachable()
+    throws Exception
+  {
+    final Constructor<Binary32> c = Binary32.class.getDeclaredConstructor();
+    c.setAccessible(true);
+
+    this.expected.expect(InvocationTargetException.class);
+    this.expected.expectCause(Is.isA(UnreachableCodeException.class));
+    c.newInstance();
   }
 }
