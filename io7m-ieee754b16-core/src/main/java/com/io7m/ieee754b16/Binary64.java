@@ -20,8 +20,8 @@ import com.io7m.junreachable.UnreachableCodeException;
 
 /**
  * <p>
- * Utility functions related to the <code>binary64</code> format specified in
- * <code>IEEE 754 2008</code>.
+ * Utility functions related to the {@code binary64} format specified in
+ * {@code IEEE 754 2008}.
  * </p>
  */
 
@@ -43,15 +43,15 @@ public final class Binary64
 
   /**
    * <p>
-   * Extract and unbias the exponent of the given packed <code>double</code>
+   * Extract and unbias the exponent of the given packed {@code double}
    * value.
    * </p>
    * <p>
    * The exponent is encoded <i>biased</i> as a number in the range
-   * <code>[0, 2047]</code>, with <code>0</code> indicating that the number is
-   * <i>subnormal</i> and <code>[1, 2046]</code> denoting the actual exponent
-   * plus {@link #BIAS}. Infinite and <code>NaN</code> values always have a
-   * biased exponent of <code>2047</code>.
+   * {@code [0, 2047]}, with {@code 0} indicating that the number is
+   * <i>subnormal</i> and {@code [1, 2046]} denoting the actual exponent
+   * plus {@link #BIAS}. Infinite and {@code NaN} values always have a
+   * biased exponent of {@code 2047}.
    * </p>
    * <p>
    * This function will therefore return:
@@ -66,7 +66,7 @@ public final class Binary64
    * <li>
    * <code>2047 - {@link #BIAS} = 1024</code> iff the input is
    * {@link Double#POSITIVE_INFINITY}, {@link Double#NEGATIVE_INFINITY}, or
-   * <code>NaN</code>.</li>
+   * {@code NaN}.</li>
    * </ul>
    * 
    * @param d

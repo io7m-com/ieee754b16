@@ -19,40 +19,40 @@ package com.io7m.ieee754b16;
 
 /**
  * <p>
- * Functions to convert values to/from the <code>binary16</code> format
- * specified in <code>IEEE 754 2008</code>.
+ * Functions to convert values to/from the {@code binary16} format
+ * specified in {@code IEEE 754 2008}.
  * </p>
  */
 
 public final class Binary16
 {
   /**
-   * The encoded form of negative infinity <code>-∞</code>.
+   * The encoded form of negative infinity {@code -∞}.
    */
 
   public static final char NEGATIVE_INFINITY;
 
   /**
-   * The encoded form of positive infinity <code>∞</code>.
+   * The encoded form of positive infinity {@code ∞}.
    */
 
   public static final char POSITIVE_INFINITY;
 
   /**
-   * The encoded form of positive zero <code>0</code>.
+   * The encoded form of positive zero {@code 0}.
    */
 
   public static final char POSITIVE_ZERO;
 
   /**
-   * The encoded form of negative zero <code>-0</code>.
+   * The encoded form of negative zero {@code -0}.
    */
 
   public static final char NEGATIVE_ZERO;
 
   /**
    * The <i>bias</i> value used to offset the encoded exponent. A given
-   * exponent <code>e</code> is encoded as <code>{@link #BIAS} + e</code>.
+   * exponent {@code e} is encoded as <code>{@link #BIAS} + e</code>.
    */
 
   public static final int  BIAS;
@@ -89,10 +89,10 @@ public final class Binary16
   }
 
   /**
-   * @return <code>true</code> if the given packed <code>binary16</code> value
+   * @return {@code true} if the given packed {@code binary16} value
    *         is infinite.
    * @param k
-   *          A packed <code>binary16</code> value
+   *          A packed {@code binary16} value
    */
 
   public static boolean isInfinite(
@@ -107,10 +107,10 @@ public final class Binary16
   }
 
   /**
-   * @return <code>true</code> if the given packed <code>binary16</code> value
-   *         is not a number (<code>NaN</code>).
+   * @return {@code true} if the given packed {@code binary16} value
+   *         is not a number ({@code NaN}).
    * @param k
-   *          A packed <code>binary16</code> value
+   *          A packed {@code binary16} value
    */
 
   public static boolean isNaN(
@@ -124,31 +124,31 @@ public final class Binary16
   /**
    * <p>
    * Convert a double precision floating point value to a packed
-   * <code>binary16</code> value.
+   * {@code binary16} value.
    * </p>
    * <p>
    * For the following specific cases, the function returns:
    * </p>
    * <ul>
-   * <li><code>NaN</code> iff <code>isNaN(k)</code></li>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
    * <li>{@link #POSITIVE_INFINITY} iff
    * <code>k == {@link Double#POSITIVE_INFINITY}</code></li>
    * <li>{@link #NEGATIVE_INFINITY} iff
    * <code>k == {@link Double#NEGATIVE_INFINITY}</code></li>
-   * <li>{@link #NEGATIVE_ZERO} iff <code>k == -0.0</code></li>
-   * <li>{@link #POSITIVE_ZERO} iff <code>k == 0.0</code></li>
+   * <li>{@link #NEGATIVE_ZERO} iff {@code k == -0.0}</li>
+   * <li>{@link #POSITIVE_ZERO} iff {@code k == 0.0}</li>
    * </ul>
    * <p>
-   * Otherwise, the <code>binary16</code> value that most closely represents
-   * <code>k</code> is returned. This may obviously be an infinite value as
+   * Otherwise, the {@code binary16} value that most closely represents
+   * {@code k} is returned. This may obviously be an infinite value as
    * the interval of double precision values is far larger than that of the
-   * <code>binary16</code> type.
+   * {@code binary16} type.
    * </p>
    * 
    * @see #unpackDouble(char)
    * @param k
    *          A floating point value
-   * @return A packed <code>binary16</code> value
+   * @return A packed {@code binary16} value
    */
 
   public static char packDouble(
@@ -200,31 +200,31 @@ public final class Binary16
   /**
    * <p>
    * Convert a single precision floating point value to a packed
-   * <code>binary16</code> value.
+   * {@code binary16} value.
    * </p>
    * <p>
    * For the following specific cases, the function returns:
    * </p>
    * <ul>
-   * <li><code>NaN</code> iff <code>isNaN(k)</code></li>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
    * <li>{@link #POSITIVE_INFINITY} iff
    * <code>k == {@link Float#POSITIVE_INFINITY}</code></li>
    * <li>{@link #NEGATIVE_INFINITY} iff
    * <code>k == {@link Float#NEGATIVE_INFINITY}</code></li>
-   * <li>{@link #NEGATIVE_ZERO} iff <code>k == -0.0</code></li>
-   * <li>{@link #POSITIVE_ZERO} iff <code>k == 0.0</code></li>
+   * <li>{@link #NEGATIVE_ZERO} iff {@code k == -0.0}</li>
+   * <li>{@link #POSITIVE_ZERO} iff {@code k == 0.0}</li>
    * </ul>
    * <p>
-   * Otherwise, the <code>binary16</code> value that most closely represents
-   * <code>k</code> is returned. This may obviously be an infinite value as
+   * Otherwise, the {@code binary16} value that most closely represents
+   * {@code k} is returned. This may obviously be an infinite value as
    * the interval of single precision values is far larger than that of the
-   * <code>binary16</code> type.
+   * {@code binary16} type.
    * </p>
    * 
    * @see #unpackFloat(char)
    * @param k
    *          A floating point value
-   * @return A packed <code>binary16</code> value
+   * @return A packed {@code binary16} value
    */
 
   public static char packFloat(
@@ -275,8 +275,8 @@ public final class Binary16
 
   /**
    * <p>
-   * Encode the unbiased exponent <code>e</code>. Values should be in the
-   * range <code>[-15, 16]</code> - values outside of this range will be
+   * Encode the unbiased exponent {@code e}. Values should be in the
+   * range {@code [-15, 16]} - values outside of this range will be
    * truncated.
    * </p>
    * 
@@ -297,8 +297,8 @@ public final class Binary16
 
   /**
    * <p>
-   * Encode the significand <code>s</code>. Values should be in the range
-   * <code>[0, 1023]</code>. Values outside of this range will be truncated.
+   * Encode the significand {@code s}. Values should be in the range
+   * {@code [0, 1023]}. Values outside of this range will be truncated.
    * </p>
    * 
    * @see #unpackGetSignificand(char)
@@ -316,8 +316,8 @@ public final class Binary16
 
   /**
    * <p>
-   * Encode the sign bit <code>s</code>. Values should be in the range
-   * <code>[0, 1]</code>, with <code>0</code> ironically denoting a positive
+   * Encode the sign bit {@code s}. Values should be in the range
+   * {@code [0, 1]}, with {@code 0} ironically denoting a positive
    * value. Values outside of this range will be truncated.
    * </p>
    * 
@@ -336,11 +336,11 @@ public final class Binary16
   }
 
   /**
-   * Show the given raw packed <code>binary16</code> value as a string of
+   * Show the given raw packed {@code binary16} value as a string of
    * binary digits.
    * 
    * @param k
-   *          A packed <code>binary16</code> value
+   *          A packed {@code binary16} value
    * @return A string representation
    */
 
@@ -365,29 +365,29 @@ public final class Binary16
 
   /**
    * <p>
-   * Convert a packed <code>binary16</code> value <code>k</code> to a
+   * Convert a packed {@code binary16} value {@code k} to a
    * double-precision floating point value.
    * </p>
    * <p>
    * The function returns:
    * </p>
    * <ul>
-   * <li><code>NaN</code> iff <code>isNaN(k)</code></li>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
    * <li>{@link Double#POSITIVE_INFINITY} iff
    * <code>k == {@link #POSITIVE_INFINITY}</code></li>
    * <li>{@link Double#NEGATIVE_INFINITY} iff
    * <code>k == {@link #NEGATIVE_INFINITY}</code></li>
-   * <li><code>-0.0</code> iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
-   * <li><code>0.0</code> iff <code>k == {@link #POSITIVE_ZERO}</code></li>
-   * <li><code>(-1.0 * n) * (2 ^ e) * 1.s</code>, for the decoded sign
-   * <code>n</code> of <code>k</code>, the decoded exponent <code>e</code> of
-   * <code>k</code>, and the decoded significand <code>s</code> of
-   * <code>k</code>.</li>
+   * <li>{@code -0.0} iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
+   * <li>{@code 0.0} iff <code>k == {@link #POSITIVE_ZERO}</code></li>
+   * <li>{@code (-1.0 * n) * (2 ^ e) * 1.s}, for the decoded sign
+   * {@code n} of {@code k}, the decoded exponent {@code e} of
+   * {@code k}, and the decoded significand {@code s} of
+   * {@code k}.</li>
    * </ul>
    * 
    * @see #packDouble(double)
    * @param k
-   *          A packed <code>binary16</code> value
+   *          A packed {@code binary16} value
    * @return A floating point value
    */
 
@@ -442,29 +442,29 @@ public final class Binary16
 
   /**
    * <p>
-   * Convert a packed <code>binary16</code> value <code>k</code> to a
+   * Convert a packed {@code binary16} value {@code k} to a
    * single-precision floating point value.
    * </p>
    * <p>
    * The function returns:
    * </p>
    * <ul>
-   * <li><code>NaN</code> iff <code>isNaN(k)</code></li>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
    * <li>{@link Float#POSITIVE_INFINITY} iff
    * <code>k == {@link #POSITIVE_INFINITY}</code></li>
    * <li>{@link Float#NEGATIVE_INFINITY} iff
    * <code>k == {@link #NEGATIVE_INFINITY}</code></li>
-   * <li><code>-0.0</code> iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
-   * <li><code>0.0</code> iff <code>k == {@link #POSITIVE_ZERO}</code></li>
-   * <li><code>(-1.0 * n) * (2 ^ e) * 1.s</code>, for the decoded sign
-   * <code>n</code> of <code>k</code>, the decoded exponent <code>e</code> of
-   * <code>k</code>, and the decoded significand <code>s</code> of
-   * <code>k</code>.</li>
+   * <li>{@code -0.0} iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
+   * <li>{@code 0.0} iff <code>k == {@link #POSITIVE_ZERO}</code></li>
+   * <li>{@code (-1.0 * n) * (2 ^ e) * 1.s}, for the decoded sign
+   * {@code n} of {@code k}, the decoded exponent {@code e} of
+   * {@code k}, and the decoded significand {@code s} of
+   * {@code k}.</li>
    * </ul>
    * 
    * @see #packFloat(float)
    * @param k
-   *          A packed <code>binary16</code> value
+   *          A packed {@code binary16} value
    * @return A floating point value
    */
 
@@ -519,15 +519,15 @@ public final class Binary16
 
   /**
    * <p>
-   * Extract and unbias the exponent of the given packed <code>binary16</code>
+   * Extract and unbias the exponent of the given packed {@code binary16}
    * value.
    * </p>
    * <p>
    * The exponent is encoded <i>biased</i> as a number in the range
-   * <code>[0, 31]</code>, with <code>0</code> indicating that the number is
-   * <i>subnormal</i> and <code>[1, 30]</code> denoting the actual exponent
-   * plus {@link #BIAS}. Infinite and <code>NaN</code> values always have an
-   * exponent of <code>31</code>.
+   * {@code [0, 31]}, with {@code 0} indicating that the number is
+   * <i>subnormal</i> and {@code [1, 30]} denoting the actual exponent
+   * plus {@link #BIAS}. Infinite and {@code NaN} values always have an
+   * exponent of {@code 31}.
    * </p>
    * <p>
    * This function will therefore return:
@@ -540,13 +540,13 @@ public final class Binary16
    * <code>[1 - {@link #BIAS}, 30 - {@link #BIAS}] = [-14, 15]</code> iff the
    * input is a <i>normal</i> number.</li>
    * <li>
-   * <code>16</code> iff the input is {@link #POSITIVE_INFINITY},
-   * {@link #NEGATIVE_INFINITY}, or <code>NaN</code>.</li>
+   * {@code 16} iff the input is {@link #POSITIVE_INFINITY},
+   * {@link #NEGATIVE_INFINITY}, or {@code NaN}.</li>
    * </ul>
    * 
    * @see #packSetExponentUnbiasedUnchecked(int)
    * @param k
-   *          A packed <code>binary16</code> value
+   *          A packed {@code binary16} value
    * @return The unbiased exponent
    */
 
@@ -559,12 +559,12 @@ public final class Binary16
   }
 
   /**
-   * Retrieve the sign bit of the given packed <code>binary16</code> value, as
-   * an integer in the range <code>[0, 1]</code>.
+   * Retrieve the sign bit of the given packed {@code binary16} value, as
+   * an integer in the range {@code [0, 1]}.
    * 
    * @see Binary16#packSetSignUnchecked(int)
    * @param k
-   *          A packed <code>binary16</code> value
+   *          A packed {@code binary16} value
    * @return An unpacked sign bit
    */
 
@@ -576,13 +576,13 @@ public final class Binary16
 
   /**
    * <p>
-   * Return the significand of the given packed <code>binary16</code> value as
-   * an integer in the range <code>[0, 1023]</code>.
+   * Return the significand of the given packed {@code binary16} value as
+   * an integer in the range {@code [0, 1023]}.
    * </p>
    * 
    * @see Binary16#packSetSignificandUnchecked(int)
    * @param k
-   *          A packed <code>binary16</code> value
+   *          A packed {@code binary16} value
    * @return An unpacked significand
    */
 
