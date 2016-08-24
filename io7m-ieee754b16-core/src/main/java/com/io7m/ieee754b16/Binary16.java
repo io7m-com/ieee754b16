@@ -58,6 +58,7 @@ public final class Binary16
    */
 
   public static final int BIAS;
+
   private static final int MASK_SIGN;
   private static final int MASK_EXPONENT;
   private static final int MASK_SIGNIFICAND;

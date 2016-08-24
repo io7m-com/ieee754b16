@@ -27,11 +27,18 @@ import com.io7m.junreachable.UnreachableCodeException;
 
 public final class Binary32
 {
+  /**
+   * The <i>bias</i> value used to offset the encoded exponent. A given
+   * exponent {@code e} is encoded as <code>{@link #BIAS} + e</code>.
+   */
+
   static final int BIAS;
-  static final int MASK_EXPONENT;
-  static final int MASK_SIGN;
-  static final int MASK_SIGNIFICAND;
+  
   static final int NEGATIVE_ZERO_BITS;
+
+  private static final int MASK_EXPONENT;
+  private static final int MASK_SIGN;
+  private static final int MASK_SIGNIFICAND;
 
   static {
     NEGATIVE_ZERO_BITS = 0x80000000;
