@@ -16,57 +16,74 @@
 
 package com.io7m.ieee754b16.tests;
 
+import com.io7m.ieee754b16.Binary32;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.io7m.ieee754b16.Binary32;
+/**
+ * Tests for Binary32.
+ */
 
-@SuppressWarnings("static-method") public class Binary32Test
+public final class Binary32Test
 {
-  @Test public void testInfinityExponent()
+  @Test
+  public void testInfinityExponent()
   {
     Assert.assertEquals(
-      128,
-      Binary32.unpackGetExponentUnbiased(Float.POSITIVE_INFINITY));
+      128L,
+      (long) Binary32.unpackGetExponentUnbiased(Float.POSITIVE_INFINITY));
   }
 
-  @Test public void testInfinityNegativeExponent()
+  @Test
+  public void testInfinityNegativeExponent()
   {
     Assert.assertEquals(
-      128,
-      Binary32.unpackGetExponentUnbiased(Float.NEGATIVE_INFINITY));
+      128L,
+      (long) Binary32.unpackGetExponentUnbiased(Float.NEGATIVE_INFINITY));
   }
 
-  @Test public void testInfinityNegativeSign()
-  {
-    Assert.assertEquals(1, Binary32.unpackGetSign(Float.NEGATIVE_INFINITY));
-  }
-
-  @Test public void testInfinityNegativeSignificand()
+  @Test
+  public void testInfinityNegativeSign()
   {
     Assert.assertEquals(
-      0,
-      Binary32.unpackGetSignificand(Float.NEGATIVE_INFINITY));
+      1L,
+      (long) Binary32.unpackGetSign(Float.NEGATIVE_INFINITY));
   }
 
-  @Test public void testInfinitySign()
-  {
-    Assert.assertEquals(0, Binary32.unpackGetSign(Float.POSITIVE_INFINITY));
-  }
-
-  @Test public void testInfinitySignificand()
+  @Test
+  public void testInfinityNegativeSignificand()
   {
     Assert.assertEquals(
-      0,
-      Binary32.unpackGetSignificand(Float.POSITIVE_INFINITY));
+      0L,
+      (long) Binary32.unpackGetSignificand(Float.NEGATIVE_INFINITY));
   }
 
-  @Test public void testNaNExponent()
+  @Test
+  public void testInfinitySign()
   {
-    Assert.assertEquals(128, Binary32.unpackGetExponentUnbiased(Float.NaN));
+    Assert.assertEquals(
+      0L,
+      (long) Binary32.unpackGetSign(Float.POSITIVE_INFINITY));
   }
 
-  @Test public void testNaNSignificand()
+  @Test
+  public void testInfinitySignificand()
+  {
+    Assert.assertEquals(
+      0L,
+      (long) Binary32.unpackGetSignificand(Float.POSITIVE_INFINITY));
+  }
+
+  @Test
+  public void testNaNExponent()
+  {
+    Assert.assertEquals(
+      128L,
+      (long) Binary32.unpackGetExponentUnbiased(Float.NaN));
+  }
+
+  @Test
+  public void testNaNSignificand()
   {
     Assert.assertTrue(Binary32.unpackGetSignificand(Float.NaN) > 0);
   }

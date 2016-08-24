@@ -16,58 +16,69 @@
 
 package com.io7m.ieee754b16.tests;
 
+import com.io7m.ieee754b16.Binary64;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.io7m.ieee754b16.Binary64;
+/**
+ * Tests for Binary64.
+ */
 
-@SuppressWarnings("static-method") public class Binary64Test
+public final class Binary64Test
 {
-  @Test public void testInfinityExponent()
+  @Test
+  public void testInfinityExponent()
   {
     Assert.assertEquals(
-      1024,
+      1024L,
       Binary64.unpackGetExponentUnbiased(Double.POSITIVE_INFINITY));
   }
 
-  @Test public void testInfinityNegativeExponent()
+  @Test
+  public void testInfinityNegativeExponent()
   {
     Assert.assertEquals(
-      1024,
+      1024L,
       Binary64.unpackGetExponentUnbiased(Double.NEGATIVE_INFINITY));
   }
 
-  @Test public void testInfinityNegativeSign()
+  @Test
+  public void testInfinityNegativeSign()
   {
-    Assert.assertEquals(1, Binary64.unpackGetSign(Double.NEGATIVE_INFINITY));
+    Assert.assertEquals(1L, Binary64.unpackGetSign(Double.NEGATIVE_INFINITY));
   }
 
-  @Test public void testInfinityNegativeSignificand()
+  @Test
+  public void testInfinityNegativeSignificand()
   {
     Assert.assertEquals(
-      0,
+      0L,
       Binary64.unpackGetSignificand(Double.NEGATIVE_INFINITY));
   }
 
-  @Test public void testInfinitySign()
+  @Test
+  public void testInfinitySign()
   {
-    Assert.assertEquals(0, Binary64.unpackGetSign(Double.POSITIVE_INFINITY));
+    Assert.assertEquals(0L, Binary64.unpackGetSign(Double.POSITIVE_INFINITY));
   }
 
-  @Test public void testInfinitySignificand()
+  @Test
+  public void testInfinitySignificand()
   {
     Assert.assertEquals(
-      0,
+      0L,
       Binary64.unpackGetSignificand(Double.POSITIVE_INFINITY));
   }
 
-  @Test public void testNaNExponent()
+  @Test
+  public void testNaNExponent()
   {
-    Assert.assertEquals(1024, Binary64.unpackGetExponentUnbiased(Double.NaN));
+    Assert.assertEquals(1024L, Binary64.unpackGetExponentUnbiased(Double.NaN));
   }
 
-  @Test public void testNaNSignificand()
+  @Test
+  public void testNaNSignificand()
   {
-    Assert.assertTrue(Binary64.unpackGetSignificand(Double.NaN) > 0);
+    Assert.assertTrue(Binary64.unpackGetSignificand(Double.NaN) > 0L);
   }
 }
