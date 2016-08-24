@@ -48,7 +48,7 @@ public final class Binary32
    * </p>
    * <p>
    * The exponent is encoded <i>biased</i> as a number in the range
-   * <code>[0, 255]</code>, with {@code 0} indicating that the number is
+   * {@code [0, 255]}, with {@code 0} indicating that the number is
    * <i>subnormal</i> and {@code [1, 254]} denoting the actual exponent
    * plus {@link #BIAS}. Infinite and {@code NaN} values always have a
    * biased exponent of {@code 255}.
