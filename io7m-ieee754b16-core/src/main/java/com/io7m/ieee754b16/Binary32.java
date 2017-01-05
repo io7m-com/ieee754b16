@@ -33,7 +33,7 @@ public final class Binary32
    */
 
   static final int BIAS;
-  
+
   static final int NEGATIVE_ZERO_BITS;
 
   private static final int MASK_EXPONENT;
