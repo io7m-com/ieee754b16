@@ -7,15 +7,19 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
-    <artifactId>io7m-ieee754b16</artifactId>
-    <version>1.0.2</version>
+    <artifactId>com.io7m.ieee754b16</artifactId>
+    <version>1.0.3</version>
   </parent>
-  <artifactId>io7m-ieee754b16-core</artifactId>
+  <artifactId>com.io7m.ieee754b16.core</artifactId>
 
   <packaging>bundle</packaging>
-  <name>io7m-ieee754b16-core</name>
+  <name>com.io7m.ieee754b16.core</name>
   <description>Functions for converting to/from IEE754 binary16 values (Core)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
+
+  <properties>
+    <io7m.api.previousArtifactId>io7m-ieee754b16-core</io7m.api.previousArtifactId>
+  </properties>
 
   <scm>
     <url>${project.parent.scm.url}</url>
@@ -26,16 +30,21 @@
   <dependencies>
     <dependency>
       <groupId>com.io7m.jnull</groupId>
-      <artifactId>io7m-jnull-core</artifactId>
+      <artifactId>com.io7m.jnull.core</artifactId>
     </dependency>
     <dependency>
       <groupId>com.io7m.junreachable</groupId>
-      <artifactId>io7m-junreachable-core</artifactId>
+      <artifactId>com.io7m.junreachable.core</artifactId>
     </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

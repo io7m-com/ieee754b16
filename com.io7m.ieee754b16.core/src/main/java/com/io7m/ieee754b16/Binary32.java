@@ -20,18 +20,25 @@ import com.io7m.junreachable.UnreachableCodeException;
 
 /**
  * <p>
- * Utility functions related to the <code>binary32</code> format specified in
- * <code>IEEE 754 2008</code>.
+ * Utility functions related to the {@code binary32} format specified in
+ * {@code IEEE 754 2008}.
  * </p>
  */
 
 public final class Binary32
 {
+  /**
+   * The <i>bias</i> value used to offset the encoded exponent. A given
+   * exponent {@code e} is encoded as <code>{@link #BIAS} + e</code>.
+   */
+
   static final int BIAS;
-  static final int MASK_EXPONENT;
-  static final int MASK_SIGN;
-  static final int MASK_SIGNIFICAND;
+
   static final int NEGATIVE_ZERO_BITS;
+
+  private static final int MASK_EXPONENT;
+  private static final int MASK_SIGN;
+  private static final int MASK_SIGNIFICAND;
 
   static {
     NEGATIVE_ZERO_BITS = 0x80000000;
@@ -41,17 +48,22 @@ public final class Binary32
     BIAS = 127;
   }
 
+  private Binary32()
+  {
+    throw new UnreachableCodeException();
+  }
+
   /**
    * <p>
-   * Extract and unbias the exponent of the given packed <code>float</code>
+   * Extract and unbias the exponent of the given packed {@code float}
    * value.
    * </p>
    * <p>
    * The exponent is encoded <i>biased</i> as a number in the range
-   * <code>[0, 255]</code>, with <code>0</code> indicating that the number is
-   * <i>subnormal</i> and <code>[1, 254]</code> denoting the actual exponent
-   * plus {@link #BIAS}. Infinite and <code>NaN</code> values always have a
-   * biased exponent of <code>255</code>.
+   * {@code [0, 255]}, with {@code 0} indicating that the number is
+   * <i>subnormal</i> and {@code [1, 254]} denoting the actual exponent
+   * plus {@link #BIAS}. Infinite and {@code NaN} values always have a
+   * biased exponent of {@code 255}.
    * </p>
    * <p>
    * This function will therefore return:
@@ -66,11 +78,11 @@ public final class Binary32
    * <li>
    * <code>255 - {@link #BIAS} = 128</code> iff the input is
    * {@link Float#POSITIVE_INFINITY}, {@link Float#NEGATIVE_INFINITY}, or
-   * <code>NaN</code>.</li>
+   * {@code NaN}.</li>
    * </ul>
-   * 
-   * @param d
-   *          A floating point value
+   *
+   * @param d A floating point value
+   *
    * @return An unbiased exponent
    */
 
@@ -85,9 +97,9 @@ public final class Binary32
 
   /**
    * Retrieve the sign bit of the given floating point value, as an integer.
-   * 
-   * @param d
-   *          A floating point value
+   *
+   * @param d A floating point value
+   *
    * @return An unpacked sign bit
    */
 
@@ -102,11 +114,12 @@ public final class Binary32
    * <p>
    * Return the significand of the given floating point value as an integer.
    * </p>
-   * 
-   * @see Binary16#packSetSignificandUnchecked(int)
-   * @param d
-   *          A floating point value
+   *
+   * @param d A floating point value
+   *
    * @return An unpacked significand
+   *
+   * @see Binary16#packSetSignificandUnchecked(int)
    */
 
   public static int unpackGetSignificand(
@@ -114,10 +127,5 @@ public final class Binary32
   {
     final int b = Float.floatToRawIntBits(d);
     return b & Binary32.MASK_SIGNIFICAND;
-  }
-
-  private Binary32()
-  {
-    throw new UnreachableCodeException();
   }
 }

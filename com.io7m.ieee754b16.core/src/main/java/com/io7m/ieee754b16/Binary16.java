@@ -17,62 +17,69 @@
 package com.io7m.ieee754b16;
 
 
+import com.io7m.junreachable.UnreachableCodeException;
+
 /**
  * <p>
- * Functions to convert values to/from the <code>binary16</code> format
- * specified in <code>IEEE 754 2008</code>.
+ * Functions to convert values to/from the {@code binary16} format
+ * specified in {@code IEEE 754 2008}.
  * </p>
  */
 
 public final class Binary16
 {
   /**
-   * The encoded form of negative infinity <code>-∞</code>.
+   * The encoded form of negative infinity {@code -∞}.
    */
 
   public static final char NEGATIVE_INFINITY;
 
   /**
-   * The encoded form of positive infinity <code>∞</code>.
+   * The encoded form of positive infinity {@code ∞}.
    */
 
   public static final char POSITIVE_INFINITY;
 
   /**
-   * The encoded form of positive zero <code>0</code>.
+   * The encoded form of positive zero {@code 0}.
    */
 
   public static final char POSITIVE_ZERO;
 
   /**
-   * The encoded form of negative zero <code>-0</code>.
+   * The encoded form of negative zero {@code -0}.
    */
 
   public static final char NEGATIVE_ZERO;
 
   /**
    * The <i>bias</i> value used to offset the encoded exponent. A given
-   * exponent <code>e</code> is encoded as <code>{@link #BIAS} + e</code>.
+   * exponent {@code e} is encoded as <code>{@link #BIAS} + e</code>.
    */
 
-  public static final int  BIAS;
-
-  static {
-    NEGATIVE_INFINITY = 0xFC00;
-    POSITIVE_INFINITY = 0x7C00;
-    POSITIVE_ZERO = 0x0000;
-    NEGATIVE_ZERO = 0x8000;
-    BIAS = 15;
-  }
+  public static final int BIAS;
 
   private static final int MASK_SIGN;
   private static final int MASK_EXPONENT;
   private static final int MASK_SIGNIFICAND;
 
   static {
+    NEGATIVE_INFINITY = (char) 0xFC00;
+    POSITIVE_INFINITY = (char) 0x7C00;
+    POSITIVE_ZERO = (char) 0x0000;
+    NEGATIVE_ZERO = (char) 0x8000;
+    BIAS = 15;
+  }
+
+  static {
     MASK_SIGN = 0x8000;
     MASK_EXPONENT = 0x7C00;
     MASK_SIGNIFICAND = 0x03FF;
+  }
+
+  private Binary16()
+  {
+    throw new UnreachableCodeException();
   }
 
   /**
@@ -82,17 +89,17 @@ public final class Binary16
   public static char exampleNaN()
   {
     final int n =
-      Binary16.packSetExponentUnbiasedUnchecked(16)
-        | Binary16.packSetSignificandUnchecked(1);
+      (int) Binary16.packSetExponentUnbiasedUnchecked(16)
+        | (int) Binary16.packSetSignificandUnchecked(1);
     final char c = (char) n;
     return c;
   }
 
   /**
-   * @return <code>true</code> if the given packed <code>binary16</code> value
-   *         is infinite.
-   * @param k
-   *          A packed <code>binary16</code> value
+   * @param k A packed {@code binary16} value
+   *
+   * @return {@code true} if the given packed {@code binary16} value is
+   * infinite.
    */
 
   public static boolean isInfinite(
@@ -107,10 +114,10 @@ public final class Binary16
   }
 
   /**
-   * @return <code>true</code> if the given packed <code>binary16</code> value
-   *         is not a number (<code>NaN</code>).
-   * @param k
-   *          A packed <code>binary16</code> value
+   * @param k A packed {@code binary16} value
+   *
+   * @return {@code true} if the given packed {@code binary16} value is not a
+   * number ({@code NaN}).
    */
 
   public static boolean isNaN(
@@ -124,31 +131,32 @@ public final class Binary16
   /**
    * <p>
    * Convert a double precision floating point value to a packed
-   * <code>binary16</code> value.
+   * {@code binary16} value.
    * </p>
    * <p>
    * For the following specific cases, the function returns:
    * </p>
    * <ul>
-   * <li><code>NaN</code> iff <code>isNaN(k)</code></li>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
    * <li>{@link #POSITIVE_INFINITY} iff
    * <code>k == {@link Double#POSITIVE_INFINITY}</code></li>
    * <li>{@link #NEGATIVE_INFINITY} iff
    * <code>k == {@link Double#NEGATIVE_INFINITY}</code></li>
-   * <li>{@link #NEGATIVE_ZERO} iff <code>k == -0.0</code></li>
-   * <li>{@link #POSITIVE_ZERO} iff <code>k == 0.0</code></li>
+   * <li>{@link #NEGATIVE_ZERO} iff {@code k == -0.0}</li>
+   * <li>{@link #POSITIVE_ZERO} iff {@code k == 0.0}</li>
    * </ul>
    * <p>
-   * Otherwise, the <code>binary16</code> value that most closely represents
-   * <code>k</code> is returned. This may obviously be an infinite value as
+   * Otherwise, the {@code binary16} value that most closely represents
+   * {@code k} is returned. This may obviously be an infinite value as
    * the interval of double precision values is far larger than that of the
-   * <code>binary16</code> type.
+   * {@code binary16} type.
    * </p>
-   * 
+   *
+   * @param k A floating point value
+   *
+   * @return A packed {@code binary16} value
+   *
    * @see #unpackDouble(char)
-   * @param k
-   *          A floating point value
-   * @return A packed <code>binary16</code> value
    */
 
   public static char packDouble(
@@ -179,7 +187,7 @@ public final class Binary16
      * Extract the 5 least-significant bits of the exponent.
      */
 
-    final int rem = (int) (de & 0x001F);
+    final int rem = (int) (de & 0x001FL);
     final char rer = Binary16.packSetExponentUnbiasedUnchecked(rem);
 
     /**
@@ -194,37 +202,38 @@ public final class Binary16
      * Combine the results.
      */
 
-    return (char) (rsr | rer | rnr);
+    return (char) ((int) rsr | (int) rer | (int) rnr);
   }
 
   /**
    * <p>
    * Convert a single precision floating point value to a packed
-   * <code>binary16</code> value.
+   * {@code binary16} value.
    * </p>
    * <p>
    * For the following specific cases, the function returns:
    * </p>
    * <ul>
-   * <li><code>NaN</code> iff <code>isNaN(k)</code></li>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
    * <li>{@link #POSITIVE_INFINITY} iff
    * <code>k == {@link Float#POSITIVE_INFINITY}</code></li>
    * <li>{@link #NEGATIVE_INFINITY} iff
    * <code>k == {@link Float#NEGATIVE_INFINITY}</code></li>
-   * <li>{@link #NEGATIVE_ZERO} iff <code>k == -0.0</code></li>
-   * <li>{@link #POSITIVE_ZERO} iff <code>k == 0.0</code></li>
+   * <li>{@link #NEGATIVE_ZERO} iff {@code k == -0.0}</li>
+   * <li>{@link #POSITIVE_ZERO} iff {@code k == 0.0}</li>
    * </ul>
    * <p>
-   * Otherwise, the <code>binary16</code> value that most closely represents
-   * <code>k</code> is returned. This may obviously be an infinite value as
+   * Otherwise, the {@code binary16} value that most closely represents
+   * {@code k} is returned. This may obviously be an infinite value as
    * the interval of single precision values is far larger than that of the
-   * <code>binary16</code> type.
+   * {@code binary16} type.
    * </p>
-   * 
+   *
+   * @param k A floating point value
+   *
+   * @return A packed {@code binary16} value
+   *
    * @see #unpackFloat(char)
-   * @param k
-   *          A floating point value
-   * @return A packed <code>binary16</code> value
    */
 
   public static char packFloat(
@@ -242,20 +251,20 @@ public final class Binary16
     if (Float.floatToIntBits(k) == Binary32.NEGATIVE_ZERO_BITS) {
       return Binary16.NEGATIVE_ZERO;
     }
-    if (k == 0.0) {
+    if ((double) k == 0.0) {
       return Binary16.POSITIVE_ZERO;
     }
 
-    final long de = Binary32.unpackGetExponentUnbiased(k);
-    final long ds = Binary32.unpackGetSign(k);
-    final long dn = Binary32.unpackGetSignificand(k);
+    final long de = (long) Binary32.unpackGetExponentUnbiased(k);
+    final long ds = (long) Binary32.unpackGetSign(k);
+    final long dn = (long) Binary32.unpackGetSignificand(k);
     final char rsr = Binary16.packSetSignUnchecked((int) ds);
 
     /**
      * Extract the 5 least-significant bits of the exponent.
      */
 
-    final int rem = (int) (de & 0x001F);
+    final int rem = (int) (de & 0x001FL);
     final char rer = Binary16.packSetExponentUnbiasedUnchecked(rem);
 
     /**
@@ -270,20 +279,21 @@ public final class Binary16
      * Combine the results.
      */
 
-    return (char) (rsr | rer | rnr);
+    return (char) ((int) rsr | (int) rer | (int) rnr);
   }
 
   /**
    * <p>
-   * Encode the unbiased exponent <code>e</code>. Values should be in the
-   * range <code>[-15, 16]</code> - values outside of this range will be
+   * Encode the unbiased exponent {@code e}. Values should be in the
+   * range {@code [-15, 16]} - values outside of this range will be
    * truncated.
    * </p>
-   * 
-   * @see #unpackGetExponentUnbiased(char)
-   * @param e
-   *          An exponent
+   *
+   * @param e An exponent
+   *
    * @return A packed exponent
+   *
+   * @see #unpackGetExponentUnbiased(char)
    */
 
   public static char packSetExponentUnbiasedUnchecked(
@@ -297,14 +307,15 @@ public final class Binary16
 
   /**
    * <p>
-   * Encode the significand <code>s</code>. Values should be in the range
-   * <code>[0, 1023]</code>. Values outside of this range will be truncated.
+   * Encode the significand {@code s}. Values should be in the range
+   * {@code [0, 1023]}. Values outside of this range will be truncated.
    * </p>
-   * 
-   * @see #unpackGetSignificand(char)
-   * @param s
-   *          A significand
+   *
+   * @param s A significand
+   *
    * @return A packed significand
+   *
+   * @see #unpackGetSignificand(char)
    */
 
   public static char packSetSignificandUnchecked(
@@ -316,15 +327,16 @@ public final class Binary16
 
   /**
    * <p>
-   * Encode the sign bit <code>s</code>. Values should be in the range
-   * <code>[0, 1]</code>, with <code>0</code> ironically denoting a positive
+   * Encode the sign bit {@code s}. Values should be in the range
+   * {@code [0, 1]}, with {@code 0} ironically denoting a positive
    * value. Values outside of this range will be truncated.
    * </p>
-   * 
-   * @see #unpackGetSign(char)
-   * @param s
-   *          A sign bit
+   *
+   * @param s A sign bit
+   *
    * @return A packed sign bit
+   *
+   * @see #unpackGetSign(char)
    */
 
   public static char packSetSignUnchecked(
@@ -336,11 +348,11 @@ public final class Binary16
   }
 
   /**
-   * Show the given raw packed <code>binary16</code> value as a string of
+   * Show the given raw packed {@code binary16} value as a string of
    * binary digits.
-   * 
-   * @param k
-   *          A packed <code>binary16</code> value
+   *
+   * @param k A packed {@code binary16} value
+   *
    * @return A string representation
    */
 
@@ -348,7 +360,7 @@ public final class Binary16
     final char k)
   {
     final StringBuilder b = new StringBuilder();
-    int z = k;
+    int z = (int) k;
     for (int i = 0; i < 16; ++i) {
       if ((z & 1) == 1) {
         b.insert(0, "1");
@@ -365,30 +377,31 @@ public final class Binary16
 
   /**
    * <p>
-   * Convert a packed <code>binary16</code> value <code>k</code> to a
+   * Convert a packed {@code binary16} value {@code k} to a
    * double-precision floating point value.
    * </p>
    * <p>
    * The function returns:
    * </p>
    * <ul>
-   * <li><code>NaN</code> iff <code>isNaN(k)</code></li>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
    * <li>{@link Double#POSITIVE_INFINITY} iff
    * <code>k == {@link #POSITIVE_INFINITY}</code></li>
    * <li>{@link Double#NEGATIVE_INFINITY} iff
    * <code>k == {@link #NEGATIVE_INFINITY}</code></li>
-   * <li><code>-0.0</code> iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
-   * <li><code>0.0</code> iff <code>k == {@link #POSITIVE_ZERO}</code></li>
-   * <li><code>(-1.0 * n) * (2 ^ e) * 1.s</code>, for the decoded sign
-   * <code>n</code> of <code>k</code>, the decoded exponent <code>e</code> of
-   * <code>k</code>, and the decoded significand <code>s</code> of
-   * <code>k</code>.</li>
+   * <li>{@code -0.0} iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
+   * <li>{@code 0.0} iff <code>k == {@link #POSITIVE_ZERO}</code></li>
+   * <li>{@code (-1.0 * n) * (2 ^ e) * 1.s}, for the decoded sign
+   * {@code n} of {@code k}, the decoded exponent {@code e} of
+   * {@code k}, and the decoded significand {@code s} of
+   * {@code k}.</li>
    * </ul>
-   * 
-   * @see #packDouble(double)
-   * @param k
-   *          A packed <code>binary16</code> value
+   *
+   * @param k A packed {@code binary16} value
+   *
    * @return A floating point value
+   *
+   * @see #packDouble(double)
    */
 
   public static double unpackDouble(
@@ -397,22 +410,22 @@ public final class Binary16
     if (Binary16.isNaN(k)) {
       return Double.NaN;
     }
-    if (k == Binary16.POSITIVE_INFINITY) {
+    if ((int) k == (int) Binary16.POSITIVE_INFINITY) {
       return Double.POSITIVE_INFINITY;
     }
-    if (k == Binary16.NEGATIVE_INFINITY) {
+    if ((int) k == (int) Binary16.NEGATIVE_INFINITY) {
       return Double.NEGATIVE_INFINITY;
     }
-    if (k == Binary16.NEGATIVE_ZERO) {
+    if ((int) k == (int) Binary16.NEGATIVE_ZERO) {
       return -0.0;
     }
-    if (k == Binary16.POSITIVE_ZERO) {
+    if ((int) k == (int) Binary16.POSITIVE_ZERO) {
       return 0.0;
     }
 
-    final long e = Binary16.unpackGetExponentUnbiased(k);
-    final long s = Binary16.unpackGetSign(k);
-    final long n = Binary16.unpackGetSignificand(k);
+    final long e = (long) Binary16.unpackGetExponentUnbiased(k);
+    final long s = (long) Binary16.unpackGetSign(k);
+    final long n = (long) Binary16.unpackGetSignificand(k);
 
     /**
      * Shift the sign bit to the position at which it will appear in the
@@ -423,7 +436,7 @@ public final class Binary16
 
     /**
      * 1. Bias the exponent.
-     * 
+     *
      * 2. Shift the result left to the position at which it will appear in the
      * resulting value.
      */
@@ -442,30 +455,31 @@ public final class Binary16
 
   /**
    * <p>
-   * Convert a packed <code>binary16</code> value <code>k</code> to a
+   * Convert a packed {@code binary16} value {@code k} to a
    * single-precision floating point value.
    * </p>
    * <p>
    * The function returns:
    * </p>
    * <ul>
-   * <li><code>NaN</code> iff <code>isNaN(k)</code></li>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
    * <li>{@link Float#POSITIVE_INFINITY} iff
    * <code>k == {@link #POSITIVE_INFINITY}</code></li>
    * <li>{@link Float#NEGATIVE_INFINITY} iff
    * <code>k == {@link #NEGATIVE_INFINITY}</code></li>
-   * <li><code>-0.0</code> iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
-   * <li><code>0.0</code> iff <code>k == {@link #POSITIVE_ZERO}</code></li>
-   * <li><code>(-1.0 * n) * (2 ^ e) * 1.s</code>, for the decoded sign
-   * <code>n</code> of <code>k</code>, the decoded exponent <code>e</code> of
-   * <code>k</code>, and the decoded significand <code>s</code> of
-   * <code>k</code>.</li>
+   * <li>{@code -0.0} iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
+   * <li>{@code 0.0} iff <code>k == {@link #POSITIVE_ZERO}</code></li>
+   * <li>{@code (-1.0 * n) * (2 ^ e) * 1.s}, for the decoded sign
+   * {@code n} of {@code k}, the decoded exponent {@code e} of
+   * {@code k}, and the decoded significand {@code s} of
+   * {@code k}.</li>
    * </ul>
-   * 
-   * @see #packFloat(float)
-   * @param k
-   *          A packed <code>binary16</code> value
+   *
+   * @param k A packed {@code binary16} value
+   *
    * @return A floating point value
+   *
+   * @see #packFloat(float)
    */
 
   public static float unpackFloat(
@@ -474,16 +488,16 @@ public final class Binary16
     if (Binary16.isNaN(k)) {
       return Float.NaN;
     }
-    if (k == Binary16.POSITIVE_INFINITY) {
+    if ((int) k == (int) Binary16.POSITIVE_INFINITY) {
       return Float.POSITIVE_INFINITY;
     }
-    if (k == Binary16.NEGATIVE_INFINITY) {
+    if ((int) k == (int) Binary16.NEGATIVE_INFINITY) {
       return Float.NEGATIVE_INFINITY;
     }
-    if (k == Binary16.NEGATIVE_ZERO) {
+    if ((int) k == (int) Binary16.NEGATIVE_ZERO) {
       return -0.0f;
     }
-    if (k == Binary16.POSITIVE_ZERO) {
+    if ((int) k == (int) Binary16.POSITIVE_ZERO) {
       return 0.0f;
     }
 
@@ -500,7 +514,7 @@ public final class Binary16
 
     /**
      * 1. Bias the exponent.
-     * 
+     *
      * 2. Shift the result left to the position at which it will appear in the
      * resulting value.
      */
@@ -519,15 +533,15 @@ public final class Binary16
 
   /**
    * <p>
-   * Extract and unbias the exponent of the given packed <code>binary16</code>
+   * Extract and unbias the exponent of the given packed {@code binary16}
    * value.
    * </p>
    * <p>
    * The exponent is encoded <i>biased</i> as a number in the range
-   * <code>[0, 31]</code>, with <code>0</code> indicating that the number is
-   * <i>subnormal</i> and <code>[1, 30]</code> denoting the actual exponent
-   * plus {@link #BIAS}. Infinite and <code>NaN</code> values always have an
-   * exponent of <code>31</code>.
+   * {@code [0, 31]}, with {@code 0} indicating that the number is
+   * <i>subnormal</i> and {@code [1, 30]} denoting the actual exponent
+   * plus {@link #BIAS}. Infinite and {@code NaN} values always have an
+   * exponent of {@code 31}.
    * </p>
    * <p>
    * This function will therefore return:
@@ -540,60 +554,58 @@ public final class Binary16
    * <code>[1 - {@link #BIAS}, 30 - {@link #BIAS}] = [-14, 15]</code> iff the
    * input is a <i>normal</i> number.</li>
    * <li>
-   * <code>16</code> iff the input is {@link #POSITIVE_INFINITY},
-   * {@link #NEGATIVE_INFINITY}, or <code>NaN</code>.</li>
+   * {@code 16} iff the input is {@link #POSITIVE_INFINITY},
+   * {@link #NEGATIVE_INFINITY}, or {@code NaN}.</li>
    * </ul>
-   * 
-   * @see #packSetExponentUnbiasedUnchecked(int)
-   * @param k
-   *          A packed <code>binary16</code> value
+   *
+   * @param k A packed {@code binary16} value
+   *
    * @return The unbiased exponent
+   *
+   * @see #packSetExponentUnbiasedUnchecked(int)
    */
 
   public static int unpackGetExponentUnbiased(
     final char k)
   {
-    final int em = k & Binary16.MASK_EXPONENT;
+    final int em = (int) k & Binary16.MASK_EXPONENT;
     final int es = em >> 10;
     return es - Binary16.BIAS;
   }
 
   /**
-   * Retrieve the sign bit of the given packed <code>binary16</code> value, as
-   * an integer in the range <code>[0, 1]</code>.
-   * 
-   * @see Binary16#packSetSignUnchecked(int)
-   * @param k
-   *          A packed <code>binary16</code> value
+   * Retrieve the sign bit of the given packed {@code binary16} value, as
+   * an integer in the range {@code [0, 1]}.
+   *
+   * @param k A packed {@code binary16} value
+   *
    * @return An unpacked sign bit
+   *
+   * @see Binary16#packSetSignUnchecked(int)
    */
 
   public static int unpackGetSign(
     final char k)
   {
-    return (k & Binary16.MASK_SIGN) >> 15;
+    return ((int) k & Binary16.MASK_SIGN) >> 15;
   }
 
   /**
    * <p>
-   * Return the significand of the given packed <code>binary16</code> value as
-   * an integer in the range <code>[0, 1023]</code>.
+   * Return the significand of the given packed {@code binary16} value as
+   * an integer in the range {@code [0, 1023]}.
    * </p>
-   * 
-   * @see Binary16#packSetSignificandUnchecked(int)
-   * @param k
-   *          A packed <code>binary16</code> value
+   *
+   * @param k A packed {@code binary16} value
+   *
    * @return An unpacked significand
+   *
+   * @see Binary16#packSetSignificandUnchecked(int)
    */
 
   public static int unpackGetSignificand(
     final char k)
   {
-    return k & Binary16.MASK_SIGNIFICAND;
-  }
-
-  private Binary16()
-  {
-    throw new AssertionError("Unreachable code, report this bug!");
+    return (int) k & Binary16.MASK_SIGNIFICAND;
   }
 }
