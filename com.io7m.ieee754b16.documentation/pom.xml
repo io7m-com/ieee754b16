@@ -10,10 +10,10 @@
     <artifactId>io7m-ieee754b16</artifactId>
     <version>1.0.2</version>
   </parent>
-  <artifactId>io7m-ieee754b16-documentation</artifactId>
+  <artifactId>com.io7m.ieee754b16.documentation</artifactId>
 
   <packaging>jar</packaging>
-  <name>io7m-ieee754b16-documentation</name>
+  <name>com.io7m.ieee754b16.documentation</name>
   <description>Functions for converting to/from IEE754 binary16 values (Documentation)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
 
@@ -26,13 +26,13 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>io7m-ieee754b16-core</artifactId>
+      <artifactId>com.io7m.ieee754b16.core</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.io7m.jnull</groupId>
-      <artifactId>io7m-jnull-core</artifactId>
+      <artifactId>com.io7m.jnull.core</artifactId>
     </dependency>
   </dependencies>
 
