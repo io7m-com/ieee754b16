@@ -5,27 +5,34 @@
     <a:email>contact@io7m.com</a:email>
   </a:author>
   <a:id>http://github.com/io7m/ieee754b16/releases.atom</a:id>
-  <a:title>io7m-ieee754b16 Releases</a:title>
-  <a:updated>2016-08-03T00:00:00Z</a:updated>
+  <a:title>com.io7m.ieee754b16 Releases</a:title>
+  <a:updated>2017-04-06T00:00:00</a:updated>
   <a:entry>
     <a:id>0</a:id>
-    <a:updated>2016-08-03T00:00:00Z</a:updated>
-    <a:published>2016-08-03T00:00:00Z</a:published>
-    <a:title>io7m-ieee754b16 1.0.2 released</a:title>
-    <a:content type="text"> io7m-ieee754b16 1.0.2 released </a:content>
+    <a:updated>2017-04-06T00:00:00</a:updated>
+    <a:published>2017-04-06T00:00:00</a:published>
+    <a:title>com.io7m.ieee754b16 1.0.3 released</a:title>
+    <a:content type="text"> com.io7m.ieee754b16 1.0.3 released </a:content>
   </a:entry>
   <a:entry>
     <a:id>1</a:id>
-    <a:updated>2015-08-13T00:00:00Z</a:updated>
-    <a:published>2015-08-13T00:00:00Z</a:published>
-    <a:title>io7m-ieee754b16 1.0.1 released</a:title>
-    <a:content type="text"> io7m-ieee754b16 1.0.1 released </a:content>
+    <a:updated>2016-08-03T00:00:00</a:updated>
+    <a:published>2016-08-03T00:00:00</a:published>
+    <a:title>com.io7m.ieee754b16 1.0.2 released</a:title>
+    <a:content type="text"> com.io7m.ieee754b16 1.0.2 released </a:content>
   </a:entry>
   <a:entry>
     <a:id>2</a:id>
-    <a:updated>2014-06-30T00:00:00Z</a:updated>
-    <a:published>2014-06-30T00:00:00Z</a:published>
-    <a:title>io7m-ieee754b16 1.0.0 released</a:title>
-    <a:content type="text"> io7m-ieee754b16 1.0.0 released </a:content>
+    <a:updated>2015-08-13T00:00:00</a:updated>
+    <a:published>2015-08-13T00:00:00</a:published>
+    <a:title>com.io7m.ieee754b16 1.0.1 released</a:title>
+    <a:content type="text"> com.io7m.ieee754b16 1.0.1 released </a:content>
+  </a:entry>
+  <a:entry>
+    <a:id>3</a:id>
+    <a:updated>2014-06-30T00:00:00</a:updated>
+    <a:published>2014-06-30T00:00:00</a:published>
+    <a:title>com.io7m.ieee754b16 1.0.0 released</a:title>
+    <a:content type="text"> com.io7m.ieee754b16 1.0.0 released </a:content>
   </a:entry>
 </a:feed>
