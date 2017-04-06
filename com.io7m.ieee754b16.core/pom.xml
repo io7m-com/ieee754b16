@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
-    <artifactId>io7m-ieee754b16</artifactId>
+    <artifactId>com.io7m.ieee754b16</artifactId>
     <version>1.0.2</version>
   </parent>
   <artifactId>com.io7m.ieee754b16.core</artifactId>
@@ -16,6 +16,10 @@
   <name>com.io7m.ieee754b16.core</name>
   <description>Functions for converting to/from IEE754 binary16 values (Core)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
+
+  <properties>
+    <io7m.api.previousArtifactId>io7m-ieee754b16-core</io7m.api.previousArtifactId>
+  </properties>
 
   <scm>
     <url>${project.parent.scm.url}</url>
@@ -36,6 +40,11 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
