@@ -183,14 +183,14 @@ public final class Binary16
     final long dn = Binary64.unpackGetSignificand(k);
     final char rsr = Binary16.packSetSignUnchecked((int) ds);
 
-    /**
+    /*
      * Extract the 5 least-significant bits of the exponent.
      */
 
     final int rem = (int) (de & 0x001FL);
     final char rer = Binary16.packSetExponentUnbiasedUnchecked(rem);
 
-    /**
+    /*
      * Extract the 10 most-significant bits of the significand.
      */
 
@@ -198,7 +198,7 @@ public final class Binary16
     final long rns = rnm >> 42;
     final char rnr = Binary16.packSetSignificandUnchecked((int) rns);
 
-    /**
+    /*
      * Combine the results.
      */
 
@@ -260,14 +260,14 @@ public final class Binary16
     final long dn = (long) Binary32.unpackGetSignificand(k);
     final char rsr = Binary16.packSetSignUnchecked((int) ds);
 
-    /**
+    /*
      * Extract the 5 least-significant bits of the exponent.
      */
 
     final int rem = (int) (de & 0x001FL);
     final char rer = Binary16.packSetExponentUnbiasedUnchecked(rem);
 
-    /**
+    /*
      * Extract the 10 most-significant bits of the significand.
      */
 
@@ -275,7 +275,7 @@ public final class Binary16
     final long rns = rnm >> 13;
     final char rnr = Binary16.packSetSignificandUnchecked((int) rns);
 
-    /**
+    /*
      * Combine the results.
      */
 
@@ -427,14 +427,14 @@ public final class Binary16
     final long s = (long) Binary16.unpackGetSign(k);
     final long n = (long) Binary16.unpackGetSignificand(k);
 
-    /**
+    /*
      * Shift the sign bit to the position at which it will appear in the
      * resulting value.
      */
 
     final long rsr = s << 63;
 
-    /**
+    /*
      * 1. Bias the exponent.
      *
      * 2. Shift the result left to the position at which it will appear in the
@@ -444,7 +444,7 @@ public final class Binary16
     final long reb = (e + Binary64.BIAS);
     final long rer = reb << 52;
 
-    /**
+    /*
      * Shift the significand left to the position at which it will appear in
      * the resulting value.
      */
@@ -505,14 +505,14 @@ public final class Binary16
     final int s = Binary16.unpackGetSign(k);
     final int n = Binary16.unpackGetSignificand(k);
 
-    /**
+    /*
      * Shift the sign bit to the position at which it will appear in the
      * resulting value.
      */
 
     final int rsr = s << 31;
 
-    /**
+    /*
      * 1. Bias the exponent.
      *
      * 2. Shift the result left to the position at which it will appear in the
@@ -522,7 +522,7 @@ public final class Binary16
     final int reb = (e + Binary32.BIAS);
     final int rer = reb << 23;
 
-    /**
+    /*
      * Shift the significand left to the position at which it will appear in
      * the resulting value.
      */
