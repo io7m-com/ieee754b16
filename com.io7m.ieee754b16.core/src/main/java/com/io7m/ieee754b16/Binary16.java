@@ -89,8 +89,8 @@ public final class Binary16
   public static char exampleNaN()
   {
     final int n =
-      (int) Binary16.packSetExponentUnbiasedUnchecked(16)
-        | (int) Binary16.packSetSignificandUnchecked(1);
+      (int) packSetExponentUnbiasedUnchecked(16)
+        | (int) packSetSignificandUnchecked(1);
     final char c = (char) n;
     return c;
   }
@@ -105,8 +105,8 @@ public final class Binary16
   public static boolean isInfinite(
     final char k)
   {
-    if (Binary16.unpackGetExponentUnbiased(k) == 16) {
-      if (Binary16.unpackGetSignificand(k) == 0) {
+    if (unpackGetExponentUnbiased(k) == 16) {
+      if (unpackGetSignificand(k) == 0) {
         return true;
       }
     }
@@ -123,8 +123,8 @@ public final class Binary16
   public static boolean isNaN(
     final char k)
   {
-    final int e = Binary16.unpackGetExponentUnbiased(k);
-    final int s = Binary16.unpackGetSignificand(k);
+    final int e = unpackGetExponentUnbiased(k);
+    final int s = unpackGetSignificand(k);
     return (e == 16) && (s > 0);
   }
 
@@ -163,32 +163,32 @@ public final class Binary16
     final double k)
   {
     if (Double.isNaN(k)) {
-      return Binary16.exampleNaN();
+      return exampleNaN();
     }
     if (k == Double.POSITIVE_INFINITY) {
-      return Binary16.POSITIVE_INFINITY;
+      return POSITIVE_INFINITY;
     }
     if (k == Double.NEGATIVE_INFINITY) {
-      return Binary16.NEGATIVE_INFINITY;
+      return NEGATIVE_INFINITY;
     }
     if (Double.doubleToLongBits(k) == Binary64.NEGATIVE_ZERO_BITS) {
-      return Binary16.NEGATIVE_ZERO;
+      return NEGATIVE_ZERO;
     }
     if (k == 0.0) {
-      return Binary16.POSITIVE_ZERO;
+      return POSITIVE_ZERO;
     }
 
     final long de = Binary64.unpackGetExponentUnbiased(k);
     final long ds = Binary64.unpackGetSign(k);
     final long dn = Binary64.unpackGetSignificand(k);
-    final char rsr = Binary16.packSetSignUnchecked((int) ds);
+    final char rsr = packSetSignUnchecked((int) ds);
 
     /*
      * Extract the 5 least-significant bits of the exponent.
      */
 
     final int rem = (int) (de & 0x001FL);
-    final char rer = Binary16.packSetExponentUnbiasedUnchecked(rem);
+    final char rer = packSetExponentUnbiasedUnchecked(rem);
 
     /*
      * Extract the 10 most-significant bits of the significand.
@@ -196,7 +196,7 @@ public final class Binary16
 
     final long rnm = dn & 0xFFC0000000000L;
     final long rns = rnm >> 42;
-    final char rnr = Binary16.packSetSignificandUnchecked((int) rns);
+    final char rnr = packSetSignificandUnchecked((int) rns);
 
     /*
      * Combine the results.
@@ -240,32 +240,32 @@ public final class Binary16
     final float k)
   {
     if (Float.isNaN(k)) {
-      return Binary16.exampleNaN();
+      return exampleNaN();
     }
     if (k == Float.POSITIVE_INFINITY) {
-      return Binary16.POSITIVE_INFINITY;
+      return POSITIVE_INFINITY;
     }
     if (k == Float.NEGATIVE_INFINITY) {
-      return Binary16.NEGATIVE_INFINITY;
+      return NEGATIVE_INFINITY;
     }
     if (Float.floatToIntBits(k) == Binary32.NEGATIVE_ZERO_BITS) {
-      return Binary16.NEGATIVE_ZERO;
+      return NEGATIVE_ZERO;
     }
     if ((double) k == 0.0) {
-      return Binary16.POSITIVE_ZERO;
+      return POSITIVE_ZERO;
     }
 
     final long de = (long) Binary32.unpackGetExponentUnbiased(k);
     final long ds = (long) Binary32.unpackGetSign(k);
     final long dn = (long) Binary32.unpackGetSignificand(k);
-    final char rsr = Binary16.packSetSignUnchecked((int) ds);
+    final char rsr = packSetSignUnchecked((int) ds);
 
     /*
      * Extract the 5 least-significant bits of the exponent.
      */
 
     final int rem = (int) (de & 0x001FL);
-    final char rer = Binary16.packSetExponentUnbiasedUnchecked(rem);
+    final char rer = packSetExponentUnbiasedUnchecked(rem);
 
     /*
      * Extract the 10 most-significant bits of the significand.
@@ -273,7 +273,7 @@ public final class Binary16
 
     final long rnm = dn & 0x7FE000L;
     final long rns = rnm >> 13;
-    final char rnr = Binary16.packSetSignificandUnchecked((int) rns);
+    final char rnr = packSetSignificandUnchecked((int) rns);
 
     /*
      * Combine the results.
@@ -299,9 +299,9 @@ public final class Binary16
   public static char packSetExponentUnbiasedUnchecked(
     final int e)
   {
-    final int eb = e + Binary16.BIAS;
+    final int eb = e + BIAS;
     final int es = eb << 10;
-    final int em = es & Binary16.MASK_EXPONENT;
+    final int em = es & MASK_EXPONENT;
     return (char) em;
   }
 
@@ -321,7 +321,7 @@ public final class Binary16
   public static char packSetSignificandUnchecked(
     final int s)
   {
-    final int sm = s & Binary16.MASK_SIGNIFICAND;
+    final int sm = s & MASK_SIGNIFICAND;
     return (char) sm;
   }
 
@@ -343,7 +343,7 @@ public final class Binary16
     final int s)
   {
     final int ss = s << 15;
-    final int sm = ss & Binary16.MASK_SIGN;
+    final int sm = ss & MASK_SIGN;
     return (char) sm;
   }
 
@@ -407,25 +407,25 @@ public final class Binary16
   public static double unpackDouble(
     final char k)
   {
-    if (Binary16.isNaN(k)) {
+    if (isNaN(k)) {
       return Double.NaN;
     }
-    if ((int) k == (int) Binary16.POSITIVE_INFINITY) {
+    if ((int) k == (int) POSITIVE_INFINITY) {
       return Double.POSITIVE_INFINITY;
     }
-    if ((int) k == (int) Binary16.NEGATIVE_INFINITY) {
+    if ((int) k == (int) NEGATIVE_INFINITY) {
       return Double.NEGATIVE_INFINITY;
     }
-    if ((int) k == (int) Binary16.NEGATIVE_ZERO) {
+    if ((int) k == (int) NEGATIVE_ZERO) {
       return -0.0;
     }
-    if ((int) k == (int) Binary16.POSITIVE_ZERO) {
+    if ((int) k == (int) POSITIVE_ZERO) {
       return 0.0;
     }
 
-    final long e = (long) Binary16.unpackGetExponentUnbiased(k);
-    final long s = (long) Binary16.unpackGetSign(k);
-    final long n = (long) Binary16.unpackGetSignificand(k);
+    final long e = (long) unpackGetExponentUnbiased(k);
+    final long s = (long) unpackGetSign(k);
+    final long n = (long) unpackGetSignificand(k);
 
     /*
      * Shift the sign bit to the position at which it will appear in the
@@ -485,25 +485,25 @@ public final class Binary16
   public static float unpackFloat(
     final char k)
   {
-    if (Binary16.isNaN(k)) {
+    if (isNaN(k)) {
       return Float.NaN;
     }
-    if ((int) k == (int) Binary16.POSITIVE_INFINITY) {
+    if ((int) k == (int) POSITIVE_INFINITY) {
       return Float.POSITIVE_INFINITY;
     }
-    if ((int) k == (int) Binary16.NEGATIVE_INFINITY) {
+    if ((int) k == (int) NEGATIVE_INFINITY) {
       return Float.NEGATIVE_INFINITY;
     }
-    if ((int) k == (int) Binary16.NEGATIVE_ZERO) {
+    if ((int) k == (int) NEGATIVE_ZERO) {
       return -0.0f;
     }
-    if ((int) k == (int) Binary16.POSITIVE_ZERO) {
+    if ((int) k == (int) POSITIVE_ZERO) {
       return 0.0f;
     }
 
-    final int e = Binary16.unpackGetExponentUnbiased(k);
-    final int s = Binary16.unpackGetSign(k);
-    final int n = Binary16.unpackGetSignificand(k);
+    final int e = unpackGetExponentUnbiased(k);
+    final int s = unpackGetSign(k);
+    final int n = unpackGetSignificand(k);
 
     /*
      * Shift the sign bit to the position at which it will appear in the
@@ -568,9 +568,9 @@ public final class Binary16
   public static int unpackGetExponentUnbiased(
     final char k)
   {
-    final int em = (int) k & Binary16.MASK_EXPONENT;
+    final int em = (int) k & MASK_EXPONENT;
     final int es = em >> 10;
-    return es - Binary16.BIAS;
+    return es - BIAS;
   }
 
   /**
@@ -587,7 +587,7 @@ public final class Binary16
   public static int unpackGetSign(
     final char k)
   {
-    return ((int) k & Binary16.MASK_SIGN) >> 15;
+    return ((int) k & MASK_SIGN) >> 15;
   }
 
   /**
@@ -606,6 +606,6 @@ public final class Binary16
   public static int unpackGetSignificand(
     final char k)
   {
-    return (int) k & Binary16.MASK_SIGNIFICAND;
+    return (int) k & MASK_SIGNIFICAND;
   }
 }
