@@ -62,15 +62,11 @@ main (int argc, char *argv[])
       break;
   }
 
-  for (int index = 0; index < 64; ++index) {
-    if (index == 0) {
-      printf("  // %d\n", index);
-      printf("  (%s) %d,\n", offset_type, 0);
-    } else if (index == 32) {
-      printf("  // %d\n", index);
-      printf("  (%s) %d,\n", offset_type, 0);
+  for (unsigned int index = 0; index < 64; ++index) {
+    if (index == 0 || index == 32) {
+      printf("  (%s) %u, // [%u]\n", offset_type, 0, index);
     } else {
-      printf("  (%s) %d,\n", offset_type, 1024);
+      printf("  (%s) %u, // [%u]\n", offset_type, 1024, index);
     }
   }
   printf("};");

@@ -27,6 +27,10 @@ ieee754b16_unpack(
 {
   bits_t b;
 
-  b.i = MANTISSA_TABLE [OFFSET_TABLE [h >> 10] + (h & 0x3ff)] + EXPONENT_TABLE [h >> 10];
+  const unsigned int e = h >> 10u;
+  const unsigned int m = h & 0x3ffu;
+  const unsigned int o = OFFSET_TABLE[e];
+
+  b.i = MANTISSA_TABLE[o + m] + EXPONENT_TABLE[e];
   return (double) b.f;
 }

@@ -92,7 +92,6 @@ main (int argc, char *argv[])
 
   uint16_t base_table[512];
   unsigned int shift_table[512];
-
   generateTables(base_table, shift_table);
 
   switch (target) {
@@ -105,6 +104,7 @@ main (int argc, char *argv[])
       printf("\n");
       printf("  static final char[] BASE_TABLE = {\n");
       for (unsigned int index = 0; index < 512; ++index) {
+        printf("  // %u\n", index);
         printf("  (char) 0x%04x,\n", base_table[index]);
       }
       break;
@@ -113,6 +113,7 @@ main (int argc, char *argv[])
       printf("\n");
       printf("const uint16_t BASE_TABLE[] = {\n");
       for (unsigned int index = 0; index < 512; ++index) {
+        printf("  // %u\n", index);
         printf("  0x%04x,\n", base_table[index]);
       }
       break;
@@ -131,6 +132,7 @@ main (int argc, char *argv[])
   }
 
   for (unsigned int index = 0; index < 512; ++index) {
+    printf("  // %u\n", index);
     printf("  %u,\n", shift_table[index]);
   }
   printf("};\n");

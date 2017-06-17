@@ -23,23 +23,23 @@ convertMantissa(
   unsigned int i)
 {
   // Zero pad mantissa bits
-  unsigned int m = i << 13;
+  unsigned int m = i << 13u;
 
   // Zero exponent
-  unsigned int e = 0;
+  unsigned int e = 0u;
 
   // While not normalized
-  while (!(m & 0x00800000)) {
+  while (!(m & 0x00800000u)) {
     // Decrement exponent (1<<23)
-    e -= 0x00800000;
+    e -= 0x00800000u;
     // Shift mantissa
-    m <<= 1;
+    m <<= 1u;
   }
 
   // Clear leading 1 bit
-  m &= ~0x00800000;
+  m &= ~0x00800000u;
   // Adjust bias ((127 - 14) << 23)
-  e += 0x38800000;
+  e += 0x38800000u;
   // Return combined number
   return m | e;
 }
@@ -71,13 +71,11 @@ main (int argc, char *argv[])
   unsigned int mantissas[2048];
 
   mantissas[0] = 0;
-
   for (unsigned int index = 1; index < 1023; ++index) {
     mantissas[index] = convertMantissa(index);
   }
-
   for (unsigned int index = 1024; index < 2047; ++index) {
-    mantissas[index] = 0x38000000 + ((index - 1024) << 13);
+    mantissas[index] = 0x38000000u + ((index - 1024u) << 13u);
   }
 
   switch (target) {
@@ -97,8 +95,8 @@ main (int argc, char *argv[])
       break;
   }
 
-  for (unsigned int index = 0; index < sizeof(mantissas) / sizeof(int); ++index) {
-    printf("  0x%08x,\n", mantissas[index]);
+  for (unsigned int index = 0; index < sizeof(mantissas) / sizeof(unsigned int); ++index) {
+    printf("  0x%08x, // [%u]\n", mantissas[index], index);
   }
   printf("};\n");
   printf("\n");
