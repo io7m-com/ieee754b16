@@ -18,7 +18,10 @@ ieee754b16_pack(
   bits_t b;
   b.f = (float) x;
 
-  return BASE_TABLE [(b.i >> 23) & 0x1ff] + ((b.i & 0x007fffff) >> SHIFT_TABLE [(b.i >> 23) & 0x1ff]);
+  const unsigned int base_index = (b.i >> 23) & 0x1ff;
+  const unsigned int masked = b.i & 0x007fffff;
+
+  return BASE_TABLE [base_index] + (masked >> SHIFT_TABLE [base_index]);
 }
 
 double
