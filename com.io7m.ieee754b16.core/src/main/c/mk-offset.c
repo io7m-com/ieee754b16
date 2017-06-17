@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 typedef enum {
   TARGET_JAVA,
@@ -42,6 +43,13 @@ main (int argc, char *argv[])
     exit(1);
   }
 
+  uint16_t offsets[64];
+  for (unsigned int index = 0; index < 64; ++index) {
+    offsets [index] = 1024;
+  }
+  offsets[0]  = 0;
+  offsets[32] = 0;
+
   char *offset_type;
   switch (target) {
     case TARGET_JAVA:
@@ -63,14 +71,10 @@ main (int argc, char *argv[])
   }
 
   for (int index = 0; index < 64; ++index) {
-    if (index == 0) {
+    if (index == 0 || index == 32) {
       printf("  // %d\n", index);
-      printf("  (%s) %d,\n", offset_type, 0);
-    } else if (index == 32) {
-      printf("  // %d\n", index);
-      printf("  (%s) %d,\n", offset_type, 0);
     } else {
-      printf("  (%s) %d,\n", offset_type, 1024);
+      printf("  (%s) %d,\n", offset_type, offsets [index]);
     }
   }
   printf("};");

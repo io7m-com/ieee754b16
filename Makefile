@@ -1,4 +1,4 @@
-CC=cc -W -Wall -Werror -std=c99 -Icom.io7m.ieee754b16.core/src/main/c
+CC=cc -g -W -Wall -Werror -pedantic -std=c99 -Icom.io7m.ieee754b16.core/src/main/c
 
 all:\
 target/obj\

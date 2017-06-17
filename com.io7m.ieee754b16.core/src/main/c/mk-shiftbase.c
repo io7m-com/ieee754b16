@@ -24,42 +24,43 @@ generateTables(
   uint16_t *base_table,
   unsigned int *shift_table)
 {
-  unsigned int index;
+  unsigned int i;
   int e;
-  for (index = 0; index < 256; ++index) {
-    e = index - 127;
-    unsigned int index0 = index | 0x000;
-    unsigned int index1 = index | 0x100;
+
+  for (i = 0; i < 256; ++i) {
+    e = i - 127;
+
+    unsigned int index0 = i | 0x000;
+    unsigned int index1 = i | 0x100;
+
     if (e < -24) {
       // Very small numbers map to zero
-      base_table[index0] = (uint16_t) 0x0000;
-      base_table[index1] = (uint16_t) 0x8000;
+      base_table[index0]  = 0x0000;
+      base_table[index1]  = 0x8000;
       shift_table[index0] = 24;
       shift_table[index1] = 24;
     } else if (e < -14) {
       // Small numbers map to denorms
-      unsigned int shift = -e - 14;
-      base_table[index0] = (uint16_t) (0x0400 >> shift);
-      base_table[index1] = (uint16_t) ((0x0400 >> shift) | 0x8000);
-      unsigned int table_shift = -e - 1;
-      shift_table[index0] = table_shift;
-      shift_table[index1] = table_shift;
+      base_table[index0]  = (0x0400 >> (-e -14));
+      base_table[index1]  = (0x0400 >> (-e -14)) | 0x8000;
+      shift_table[index0] = -e - 1;
+      shift_table[index1] = -e - 1;
     } else if (e <= 15) {
       // Normal numbers just lose precision
-      base_table[index0] = (uint16_t) ((e + 15) << 10);
-      base_table[index1] = (uint16_t) (((e + 15) << 10) | 0x8000);
+      base_table[index0]  = ((e + 15) << 10);
+      base_table[index1]  = ((e + 15) << 10) | 0x8000;
       shift_table[index0] = 13;
       shift_table[index1] = 13;
     } else if (e < 128) {
       // Large numbers map to Infinity
-      base_table[index0] = (uint16_t) 0x7C00;
-      base_table[index1] = (uint16_t) 0xFC00;
+      base_table[index0]  = 0x7C00;
+      base_table[index1]  = 0xFC00;
       shift_table[index0] = 24;
       shift_table[index1] = 24;
     } else {
       // Infinity and NaN's stay Infinity and NaN's
-      base_table[index0] = (uint16_t) 0x7C00;
-      base_table[index1] = (uint16_t) 0xFC00;
+      base_table[index0]  = 0x7C00;
+      base_table[index1]  = 0xFC00;
       shift_table[index0] = 13;
       shift_table[index1] = 13;
     }

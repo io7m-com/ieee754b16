@@ -71,11 +71,9 @@ main (int argc, char *argv[])
   unsigned int mantissas[2048];
 
   mantissas[0] = 0;
-
   for (unsigned int index = 1; index < 1023; ++index) {
     mantissas[index] = convertMantissa(index);
   }
-
   for (unsigned int index = 1024; index < 2047; ++index) {
     mantissas[index] = 0x38000000 + ((index - 1024) << 13);
   }
