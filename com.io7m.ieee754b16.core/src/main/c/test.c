@@ -5,6 +5,14 @@
 int
 main (void)
 {
+  printf("-- 2047\n");
+
+  {
+    ieee754b16_half_t packed = ieee754b16_pack(2047.0);
+    double r = ieee754b16_unpack(packed);
+    printf("%.08f → 0x%04x → %.08f\n", 2047.0, packed, r);
+  }
+
   printf("-- [-1.0, 1.0]\n");
 
   {

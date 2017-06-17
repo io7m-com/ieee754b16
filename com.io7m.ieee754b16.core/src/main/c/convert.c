@@ -18,7 +18,14 @@ ieee754b16_pack(
   bits_t b;
   b.f = (float) x;
 
-  return BASE_TABLE [(b.i >> 23) & 0x1ff] + ((b.i & 0x007fffff) >> SHIFT_TABLE [(b.i >> 23) & 0x1ff]);
+  // h=basetable[(f>>23)&0x1ff]+((f&0x007fffff)>>shifttable[(f>>23)&0x1ff])
+  const unsigned int base_index = (b.i >> 23) & 0x1ff;
+  const unsigned int mask       = b.i & 0x007fffff;
+  const unsigned int base       = BASE_TABLE [base_index];
+  const unsigned int shift      = SHIFT_TABLE [base_index];
+  const unsigned int shifted    = mask >> shift;
+
+  return (ieee754b16_half_t) (base + shifted);
 }
 
 double
@@ -27,7 +34,14 @@ ieee754b16_unpack(
 {
   bits_t b;
 
-  b.i = MANTISSA_TABLE [OFFSET_TABLE [h >> 10] + (h & 0x3ff)] + EXPONENT_TABLE [h >> 10];
+  // f=mantissatable[offsettable[h>>10]+(h&0x3ff)]+exponenttable[h>>10]
+  const unsigned int index    = h >> 10;
+  const unsigned int masked   = h & 0x3ff;
+  const unsigned int offset   = OFFSET_TABLE [index];
+  const unsigned int exponent = EXPONENT_TABLE [index];
+  const unsigned int mantissa = MANTISSA_TABLE [offset + masked];
+
+  b.i = mantissa + exponent;
   return (double) b.f;
 }
 
