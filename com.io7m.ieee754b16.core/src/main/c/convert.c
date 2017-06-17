@@ -34,3 +34,4 @@ ieee754b16_unpack(
   b.i = MANTISSA_TABLE[o + m] + EXPONENT_TABLE[e];
   return (double) b.f;
 }
+
