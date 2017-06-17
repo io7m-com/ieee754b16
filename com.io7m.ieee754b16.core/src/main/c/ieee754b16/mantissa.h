@@ -4,4 +4,3 @@
 extern const unsigned int MANTISSA_TABLE[];
 
 #endif
-

@@ -8,4 +8,3 @@ extern const uint16_t BASE_TABLE[];
 extern const unsigned int SHIFT_TABLE[];
 
 #endif
-

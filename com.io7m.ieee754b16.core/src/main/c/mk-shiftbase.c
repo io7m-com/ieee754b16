@@ -14,7 +14,6 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,45 +24,42 @@ generateTables(
   uint16_t *base_table,
   unsigned int *shift_table)
 {
-  unsigned int i;
+  unsigned int index;
   int e;
-
-  for (i = 0; i < 256; ++i) {
-    e = i - 127;
-
-    unsigned int index0 = i | 0x000;
-    unsigned int index1 = i | 0x100;
-
+  for (index = 0; index < 256; ++index) {
+    e = index - 127;
+    unsigned int index0 = index | 0x000;
+    unsigned int index1 = index | 0x100;
     if (e < -24) {
       // Very small numbers map to zero
-      base_table[index0]  = 0x0000;
-      base_table[index1]  = 0x8000;
+      base_table[index0] = (uint16_t) 0x0000;
+      base_table[index1] = (uint16_t) 0x8000;
       shift_table[index0] = 24;
       shift_table[index1] = 24;
     } else if (e < -14) {
-      assert ((-e -14) >= 0);
-
       // Small numbers map to denorms
-      base_table[index0]  = (0x0400 >> (-e -14));
-      base_table[index1]  = (0x0400 >> (-e -14)) | 0x8000;
-      shift_table[index0] = -e - 1;
-      shift_table[index1] = -e - 1;
+      unsigned int shift = -e - 14;
+      base_table[index0] = (uint16_t) (0x0400 >> shift);
+      base_table[index1] = (uint16_t) ((0x0400 >> shift) | 0x8000);
+      unsigned int table_shift = -e - 1;
+      shift_table[index0] = table_shift;
+      shift_table[index1] = table_shift;
     } else if (e <= 15) {
       // Normal numbers just lose precision
-      base_table[index0]  = ((e + 15) << 10);
-      base_table[index1]  = ((e + 15) << 10) | 0x8000;
+      base_table[index0] = (uint16_t) ((e + 15) << 10);
+      base_table[index1] = (uint16_t) (((e + 15) << 10) | 0x8000);
       shift_table[index0] = 13;
       shift_table[index1] = 13;
     } else if (e < 128) {
       // Large numbers map to Infinity
-      base_table[index0]  = 0x7C00;
-      base_table[index1]  = 0xFC00;
+      base_table[index0] = (uint16_t) 0x7C00;
+      base_table[index1] = (uint16_t) 0xFC00;
       shift_table[index0] = 24;
       shift_table[index1] = 24;
     } else {
       // Infinity and NaN's stay Infinity and NaN's
-      base_table[index0]  = 0x7C00;
-      base_table[index1]  = 0xFC00;
+      base_table[index0] = (uint16_t) 0x7C00;
+      base_table[index1] = (uint16_t) 0xFC00;
       shift_table[index0] = 13;
       shift_table[index1] = 13;
     }
@@ -96,7 +92,6 @@ main (int argc, char *argv[])
 
   uint16_t base_table[512];
   unsigned int shift_table[512];
-
   generateTables(base_table, shift_table);
 
   switch (target) {
@@ -109,7 +104,7 @@ main (int argc, char *argv[])
       printf("\n");
       printf("  static final char[] BASE_TABLE = {\n");
       for (unsigned int index = 0; index < 512; ++index) {
-        printf("  (char) 0x%04x,\n", base_table[index]);
+        printf("  (char) 0x%04x, // [%u]\n", base_table[index], index);
       }
       break;
     case TARGET_C:
@@ -117,7 +112,7 @@ main (int argc, char *argv[])
       printf("\n");
       printf("const uint16_t BASE_TABLE[] = {\n");
       for (unsigned int index = 0; index < 512; ++index) {
-        printf("  0x%04x,\n", base_table[index]);
+        printf("  0x%04x, // [%u]\n", base_table[index], index);
       }
       break;
   }
@@ -135,7 +130,7 @@ main (int argc, char *argv[])
   }
 
   for (unsigned int index = 0; index < 512; ++index) {
-    printf("  %u,\n", shift_table[index]);
+    printf("  %u, // [%u]\n", shift_table[index], index);
   }
   printf("};\n");
   printf("\n");
@@ -154,4 +149,3 @@ main (int argc, char *argv[])
   printf("\n");
   return 0;
 }
-

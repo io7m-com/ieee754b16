@@ -44,17 +44,16 @@ main (int argc, char *argv[])
 
   unsigned int exponents[64];
 
-  for (unsigned int index = 1; index <= 30; ++index) {
-    exponents[index] = index << 23;
-  }
-  for (unsigned int index = 33; index <= 62; ++index) {
-    exponents[index] = (0x80000000 + (index - 32)) << 23;
-  }
-
   exponents[0] = 0;
-  exponents[31] = 0x47800000;
-  exponents[32] = 0x80000000;
-  exponents[63] = 0xC7800000;
+  for (unsigned int index = 1; index <= 30; ++index) {
+    exponents[index] = index << 23u;
+  }
+  exponents[31] = 0x47800000u;
+  exponents[32] = 0x80000000u;
+  for (unsigned int index = 33; index <= 62; ++index) {
+    exponents[index] = 0x80000000u + ((index - 32u) << 23u);
+  }
+  exponents[63] = 0xC7800000u;
 
   switch (target) {
     case TARGET_JAVA:
@@ -73,17 +72,8 @@ main (int argc, char *argv[])
       break;
   }
 
-  for (unsigned int index = 0; index < sizeof(exponents) / sizeof(unsigned int); ++index) {
-    if (index == 1) {
-      printf("  // 1 .. 30\n");
-    } else if (index == 31) {
-      printf("  // 31 \n");
-    } else if (index == 32) {
-      printf("  // 32 \n");
-    } else if (index == 63) {
-      printf("  // 63 \n");
-    }
-    printf("  0x%08x,\n", exponents[index]);
+  for (unsigned int index = 0; index < sizeof(exponents) / sizeof(int); ++index) {
+    printf("  0x%08x, // [%u]\n", exponents[index], index);
   }
 
   printf("};\n");
@@ -102,4 +92,3 @@ main (int argc, char *argv[])
 
   return 0;
 }
-
