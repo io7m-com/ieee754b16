@@ -14,6 +14,7 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,6 +41,8 @@ generateTables(
       shift_table[index0] = 24;
       shift_table[index1] = 24;
     } else if (e < -14) {
+      assert ((-e -14) >= 0);
+
       // Small numbers map to denorms
       base_table[index0]  = (0x0400 >> (-e -14));
       base_table[index1]  = (0x0400 >> (-e -14)) | 0x8000;
