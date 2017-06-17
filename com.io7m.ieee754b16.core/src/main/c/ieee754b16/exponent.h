@@ -4,3 +4,4 @@
 extern const unsigned int EXPONENT_TABLE[];
 
 #endif
+

@@ -30,3 +30,4 @@ ieee754b16_unpack(
   b.i = MANTISSA_TABLE [OFFSET_TABLE [h >> 10] + (h & 0x3ff)] + EXPONENT_TABLE [h >> 10];
   return (double) b.f;
 }
+

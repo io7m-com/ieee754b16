@@ -27,3 +27,4 @@ ieee754b16_half_t ieee754b16_pack(double x);
 double ieee754b16_unpack(ieee754b16_half_t x);
 
 #endif // IEEE754B16_CONVERT_H
+
