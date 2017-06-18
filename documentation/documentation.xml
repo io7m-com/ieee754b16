@@ -19,7 +19,7 @@
 <s:document
   xmlns:s="http://schemas.io7m.com/structural/2.1.0"
   xmlns:xi="http://www.w3.org/2001/XInclude">
-  <s:document-title>com.io7m.ieee754b16 1.0.3 Documentation</s:document-title>
+  <s:document-title>com.io7m.ieee754b16 1.0.4 Documentation</s:document-title>
   <s:document-style>documentation.css</s:document-style>
   <s:document-contents/>
 
@@ -64,7 +64,7 @@
           <s:verbatim s:type="example"><![CDATA[<dependency>
   <groupId>com.io7m.ieee754b16</groupId>
   <artifactId>com.io7m.ieee754b16-core</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 </dependency>]]></s:verbatim>
         </s:paragraph>
         <s:paragraph>
