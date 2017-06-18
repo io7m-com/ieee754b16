@@ -14,7 +14,7 @@
 
   <packaging>bundle</packaging>
   <name>com.io7m.ieee754b16.core</name>
-  <description>Functions for converting to/from IEE754 binary16 values (Core)</description>
+  <description>Functions for converting to/from IEEE754 binary16 values (Core)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
 
   <scm>

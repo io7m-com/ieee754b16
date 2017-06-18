@@ -17,7 +17,7 @@
 
   <packaging>pom</packaging>
   <name>com.io7m.ieee754b16</name>
-  <description>Functions for converting to/from IEE754 binary16 values</description>
+  <description>Functions for converting to/from IEEE754 binary16 values</description>
   <url>http://github.com/io7m/ieee754b16</url>
 
   <modules>

@@ -14,7 +14,7 @@
 
   <packaging>jar</packaging>
   <name>com.io7m.ieee754b16.checkstyle</name>
-  <description>Functions for converting to/from IEE754 binary16 values (Checkstyle policy)</description>
+  <description>Functions for converting to/from IEEE754 binary16 values (Checkstyle policy)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
 
   <scm>
