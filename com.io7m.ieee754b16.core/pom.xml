@@ -8,13 +8,13 @@
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
     <artifactId>com.io7m.ieee754b16</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.4</version>
   </parent>
   <artifactId>com.io7m.ieee754b16.core</artifactId>
 
   <packaging>bundle</packaging>
   <name>com.io7m.ieee754b16.core</name>
-  <description>Functions for converting to/from IEE754 binary16 values (Core)</description>
+  <description>Functions for converting to/from IEEE754 binary16 values (Core)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
 
   <scm>
