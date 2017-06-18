@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
     <artifactId>com.io7m.ieee754b16</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4-SNAPSHOT</version>
   </parent>
   <artifactId>com.io7m.ieee754b16.checkstyle</artifactId>
 
@@ -16,10 +16,6 @@
   <name>com.io7m.ieee754b16.checkstyle</name>
   <description>Functions for converting to/from IEE754 binary16 values (Checkstyle policy)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
-
-  <properties>
-    <io7m.api.previousArtifactId>io7m-ieee754b16-checkstyle</io7m.api.previousArtifactId>
-  </properties>
 
   <scm>
     <url>${project.parent.scm.url}</url>

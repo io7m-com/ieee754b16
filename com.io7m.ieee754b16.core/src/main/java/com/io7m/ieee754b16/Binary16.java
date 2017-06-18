@@ -61,7 +61,7 @@ public final class Binary16
 
   private static final int MASK_SIGN;
   private static final int MASK_EXPONENT;
-  private static final int MASK_SIGNIFICAND;
+  private static final int MASK_MANTISSA;
 
   static {
     NEGATIVE_INFINITY = (char) 0xFC00;
@@ -74,7 +74,7 @@ public final class Binary16
   static {
     MASK_SIGN = 0x8000;
     MASK_EXPONENT = 0x7C00;
-    MASK_SIGNIFICAND = 0x03FF;
+    MASK_MANTISSA = 0x03FF;
   }
 
   private Binary16()
@@ -162,47 +162,186 @@ public final class Binary16
   public static char packDouble(
     final double k)
   {
-    if (Double.isNaN(k)) {
-      return exampleNaN();
-    }
-    if (k == Double.POSITIVE_INFINITY) {
-      return POSITIVE_INFINITY;
-    }
-    if (k == Double.NEGATIVE_INFINITY) {
-      return NEGATIVE_INFINITY;
-    }
-    if (Double.doubleToLongBits(k) == Binary64.NEGATIVE_ZERO_BITS) {
-      return NEGATIVE_ZERO;
-    }
-    if (k == 0.0) {
-      return POSITIVE_ZERO;
-    }
+    return packFloat((float) k);
+  }
 
-    final long de = Binary64.unpackGetExponentUnbiased(k);
-    final long ds = Binary64.unpackGetSign(k);
-    final long dn = Binary64.unpackGetSignificand(k);
-    final char rsr = packSetSignUnchecked((int) ds);
+  /**
+   * <p>
+   * Convert a packed {@code binary16} value {@code k} to a
+   * double-precision floating point value.
+   * </p>
+   * <p>
+   * The function returns:
+   * </p>
+   * <ul>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
+   * <li>{@link Double#POSITIVE_INFINITY} iff
+   * <code>k == {@link #POSITIVE_INFINITY}</code></li>
+   * <li>{@link Double#NEGATIVE_INFINITY} iff
+   * <code>k == {@link #NEGATIVE_INFINITY}</code></li>
+   * <li>{@code -0.0} iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
+   * <li>{@code 0.0} iff <code>k == {@link #POSITIVE_ZERO}</code></li>
+   * <li>{@code (-1.0 * n) * (2 ^ e) * 1.s}, for the decoded sign
+   * {@code n} of {@code k}, the decoded exponent {@code e} of
+   * {@code k}, and the decoded significand {@code s} of
+   * {@code k}.</li>
+   * </ul>
+   *
+   * @param k A packed {@code binary16} value
+   *
+   * @return A floating point value
+   *
+   * @see #packDouble(double)
+   */
+
+  public static double unpackDouble(
+    final char k)
+  {
+    return (double) unpackFloat(k);
+  }
+
+  /**
+   * <p>
+   * Convert a packed {@code binary16} value {@code k} to a
+   * single-precision floating point value.
+   * </p>
+   * <p>
+   * The function returns:
+   * </p>
+   * <ul>
+   * <li>{@code NaN} iff {@code isNaN(k)}</li>
+   * <li>{@link Double#POSITIVE_INFINITY} iff
+   * <code>k == {@link #POSITIVE_INFINITY}</code></li>
+   * <li>{@link Double#NEGATIVE_INFINITY} iff
+   * <code>k == {@link #NEGATIVE_INFINITY}</code></li>
+   * <li>{@code -0.0} iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
+   * <li>{@code 0.0} iff <code>k == {@link #POSITIVE_ZERO}</code></li>
+   * <li>{@code (-1.0 * n) * (2 ^ e) * 1.s}, for the decoded sign
+   * {@code n} of {@code k}, the decoded exponent {@code e} of
+   * {@code k}, and the decoded significand {@code s} of
+   * {@code k}.</li>
+   * </ul>
+   *
+   * @param k A packed {@code binary16} value
+   *
+   * @return A floating point value
+   *
+   * @see #packDouble(double)
+   */
+
+  public static float unpackFloat(
+    final char k)
+  {
+    final int f16_mantissa = (int) k & MASK_MANTISSA;
+    final int f16_exponent = (int) k & MASK_EXPONENT;
+    final int f16_sign = (int) k & MASK_SIGN;
 
     /*
-     * Extract the 5 least-significant bits of the exponent.
+     * If the exponent is zero, and the mantissa is zero, the number is zero.
+     * The sign is preserved.
      */
 
-    final int rem = (int) (de & 0x001FL);
-    final char rer = packSetExponentUnbiasedUnchecked(rem);
+    if (f16_exponent == 0 && f16_mantissa == 0) {
+      return unpackFloatZero(f16_sign);
+    }
 
     /*
-     * Extract the 10 most-significant bits of the significand.
+     * If the exponent indicates that the number is infinite or NaN,
+     * then return a similar infinite or NaN.
      */
 
-    final long rnm = dn & 0xFFC0000000000L;
-    final long rns = rnm >> 42;
-    final char rnr = packSetSignificandUnchecked((int) rns);
+    if (f16_exponent == MASK_EXPONENT) {
+      return unpackFloatInfiniteNaN(f16_mantissa, f16_sign);
+    }
 
     /*
-     * Combine the results.
+     * If the exponent is nonzero, then the number is normal in 16 bits and can
+     * therefore be translated to a normal value in 32 bits.
      */
 
-    return (char) ((int) rsr | (int) rer | (int) rnr);
+    if (f16_exponent != 0) {
+      return unpackFloatNormal(f16_mantissa, f16_exponent, f16_sign);
+    }
+
+    /*
+     * If the exponent is zero, and the mantissa not zero, the number is
+     * a 16-bit subnormal but can be transformed to a 32-bit normal.
+     */
+
+    return unpackFloatSubnormal(f16_mantissa, f16_sign);
+  }
+
+  private static float unpackFloatSubnormal(
+    final int f16_mantissa,
+    final int f16_sign)
+  {
+    // Try to convert the subnormal 16-bit value to a 32-bit normal value.
+    // Repeatedly scale the mantissa and exponent while the mantissa is subnormal.
+    int r_mantissa = f16_mantissa;
+    int r_exponent = 0x1c400;
+    do {
+      r_mantissa <<= 1;
+      r_exponent -= 0x400;
+    } while ((r_mantissa & 0x400) == 0);
+
+    // Discard the subnormal bit
+    r_mantissa &= MASK_MANTISSA;
+
+    final int f32_exponent = r_exponent << 13;
+    final int f32_mantissa = r_mantissa << 13;
+    final int f32_sign = f16_sign << 16;
+    return Float.intBitsToFloat(f32_sign | f32_exponent | f32_mantissa);
+  }
+
+  private static float unpackFloatZero(
+    final int f16_sign)
+  {
+    return Float.intBitsToFloat(f16_sign << 16);
+  }
+
+  private static float unpackFloatNormal(
+    final int f16_mantissa,
+    final int f16_exponent,
+    final int f16_sign)
+  {
+    // Floating point numbers in the normal range of the type size adopt the
+    // exponent and thus the precision to the magnitude of the value. But this
+    // is not a smooth adoption, it happens in steps: switching to the next
+    // higher exponent results in half the precision. The precision now remains
+    // the same for all values of the mantissa until the next jump to the next
+    // higher exponent. The extension code above makes these transitions
+    // smoother by returning a value that is in the geographical center of the
+    // covered 32 bit float range for this particular half float value. Every
+    // normal half float value maps to exactly 8192 32 bit float values. The
+    // returned value is supposed to be exactly in the middle of these values.
+    // But at the transition of the half float exponent the lower 4096 values
+    // have twice the precision as the upper 4096 values and thus cover a
+    // number space that is only half as large as on the other side. All these
+    // 8192 32 bit float values map to the same half float value, so converting
+    // a half float to 32 bit and back results in the same half float value
+    // regardless of which of the 8192 intermediate 32 bit values was chosen.
+
+    final int r_exponent = f16_exponent + 0x1c000;
+    final int f32_mantissa;
+    if (f16_mantissa == 0 && r_exponent > 0x1c400) {
+      f32_mantissa = MASK_MANTISSA;
+    } else {
+      f32_mantissa = f16_mantissa << 13;
+    }
+
+    final int f32_exponent = r_exponent << 13;
+    final int f32_sign = f16_sign << 16;
+    return Float.intBitsToFloat(f32_sign | f32_exponent | f32_mantissa);
+  }
+
+  private static float unpackFloatInfiniteNaN(
+    final int f16_mantissa,
+    final int f16_sign)
+  {
+    final int r_sign = f16_sign << 16;
+    final int r_exponent = 0x3fc00 << 13;
+    final int r_mantissa = f16_mantissa << 13;
+    return Float.intBitsToFloat(r_sign | r_exponent | r_mantissa);
   }
 
   /**
@@ -239,47 +378,96 @@ public final class Binary16
   public static char packFloat(
     final float k)
   {
-    if (Float.isNaN(k)) {
-      return exampleNaN();
-    }
-    if (k == Float.POSITIVE_INFINITY) {
-      return POSITIVE_INFINITY;
-    }
-    if (k == Float.NEGATIVE_INFINITY) {
-      return NEGATIVE_INFINITY;
-    }
-    if (Float.floatToIntBits(k) == Binary32.NEGATIVE_ZERO_BITS) {
-      return NEGATIVE_ZERO;
-    }
-    if ((double) k == 0.0) {
-      return POSITIVE_ZERO;
-    }
-
-    final long de = (long) Binary32.unpackGetExponentUnbiased(k);
-    final long ds = (long) Binary32.unpackGetSign(k);
-    final long dn = (long) Binary32.unpackGetSignificand(k);
-    final char rsr = packSetSignUnchecked((int) ds);
+    final int f32_bits = Float.floatToIntBits(k);
+    final int f16_sign = (f32_bits >>> 16) & 0x8000;
+    final int f32_unrounded = f32_bits & 0x7fffffff;
+    final int f32_rounded = f32_unrounded + 0x1000;
 
     /*
-     * Extract the 5 least-significant bits of the exponent.
+     * The 32-bit float might be large enough to become NaN or Infinity.
      */
 
-    final int rem = (int) (de & 0x001FL);
-    final char rer = packSetExponentUnbiasedUnchecked(rem);
+    if (f32_rounded >= 0x47800000) {
+      return packFloatMaybeNaNInfinity(
+        f32_bits, f16_sign, f32_unrounded, f32_rounded);
+    }
 
     /*
-     * Extract the 10 most-significant bits of the significand.
+     * The 32-bit float is a normal value, and is of a size that would allow
+     * it to remain a normal value as a 16-bit float.
      */
 
-    final long rnm = dn & 0x7FE000L;
-    final long rns = rnm >> 13;
-    final char rnr = packSetSignificandUnchecked((int) rns);
+    if (f32_rounded >= 0x38800000) {
+      return packFloatNormal(f16_sign, f32_rounded);
+    }
 
     /*
-     * Combine the results.
+     * The 32-bit float value is subnormal and would be too small
+     * to even become a subnormal 16-bit float. Instead, simply return a signed
+     * zero value.
      */
 
-    return (char) ((int) rsr | (int) rer | (int) rnr);
+    if (f32_rounded < 0x33000000) {
+      return (char) f16_sign;
+    }
+
+    /*
+     * The 32-bit float value is subnormal, but would fit in a 16-bit float.
+     */
+
+    return packFloatSubnormal(f32_bits, f16_sign, f32_unrounded);
+  }
+
+  private static char packFloatSubnormal(
+    final int f32_bits,
+    final int f16_sign,
+    final int f32_unrounded)
+  {
+    final int f16_rounded =
+      f32_unrounded >>> 23;
+
+    // Add subnormal bit
+    final int f16_with_subnormal =
+      (f32_bits & 0x7fffff) | 0x800000;
+
+    // Round depending on cut off
+    final int f16_rounded_cutoff =
+      0x800000 >>> (f16_rounded - 102);
+
+    // Divide by 2^(1-(exp-127+15)) and >> 13 | exp = 0
+    final int f16_divided =
+      (f16_with_subnormal + f16_rounded_cutoff) >>> (126 - f16_rounded);
+
+    return (char) (f16_sign | f16_divided);
+  }
+
+  private static char packFloatNormal(
+    final int f16_sign,
+    final int f32_rounded)
+  {
+    return (char) (f16_sign | f32_rounded - 0x38000000 >>> 13);
+  }
+
+  private static char packFloatMaybeNaNInfinity(
+    final int f32_bits,
+    final int f16_sign,
+    final int f32_unrounded,
+    final int f32_rounded)
+  {
+    // This extension slightly extends the number range of the half float
+    // format by saving some 32 bit values form getting promoted to Infinity.
+    // The affected values are those that would have been smaller than
+    // Infinity without rounding and would become Infinity only due to the
+    // rounding.
+
+    if (f32_unrounded >= 0x47800000) {
+      if (f32_rounded < 0x7f800000) {
+        return (char) (f16_sign | 0x7c00);
+      }
+      return (char) (f16_sign | 0x7c00 | (f32_bits & 0x007fffff) >>> 13);
+    }
+
+    return (char) (f16_sign | 0x7bff);
   }
 
   /**
@@ -321,7 +509,7 @@ public final class Binary16
   public static char packSetSignificandUnchecked(
     final int s)
   {
-    final int sm = s & MASK_SIGNIFICAND;
+    final int sm = s & MASK_MANTISSA;
     return (char) sm;
   }
 
@@ -359,7 +547,7 @@ public final class Binary16
   public static String toRawBinaryString(
     final char k)
   {
-    final StringBuilder b = new StringBuilder();
+    final StringBuilder b = new StringBuilder(16);
     int z = (int) k;
     for (int i = 0; i < 16; ++i) {
       if ((z & 1) == 1) {
@@ -370,166 +558,9 @@ public final class Binary16
       z >>= 1;
     }
 
-    final String r = b.toString();
-    assert r != null;
-    return r;
+    return b.toString();
   }
 
-  /**
-   * <p>
-   * Convert a packed {@code binary16} value {@code k} to a
-   * double-precision floating point value.
-   * </p>
-   * <p>
-   * The function returns:
-   * </p>
-   * <ul>
-   * <li>{@code NaN} iff {@code isNaN(k)}</li>
-   * <li>{@link Double#POSITIVE_INFINITY} iff
-   * <code>k == {@link #POSITIVE_INFINITY}</code></li>
-   * <li>{@link Double#NEGATIVE_INFINITY} iff
-   * <code>k == {@link #NEGATIVE_INFINITY}</code></li>
-   * <li>{@code -0.0} iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
-   * <li>{@code 0.0} iff <code>k == {@link #POSITIVE_ZERO}</code></li>
-   * <li>{@code (-1.0 * n) * (2 ^ e) * 1.s}, for the decoded sign
-   * {@code n} of {@code k}, the decoded exponent {@code e} of
-   * {@code k}, and the decoded significand {@code s} of
-   * {@code k}.</li>
-   * </ul>
-   *
-   * @param k A packed {@code binary16} value
-   *
-   * @return A floating point value
-   *
-   * @see #packDouble(double)
-   */
-
-  public static double unpackDouble(
-    final char k)
-  {
-    if (isNaN(k)) {
-      return Double.NaN;
-    }
-    if ((int) k == (int) POSITIVE_INFINITY) {
-      return Double.POSITIVE_INFINITY;
-    }
-    if ((int) k == (int) NEGATIVE_INFINITY) {
-      return Double.NEGATIVE_INFINITY;
-    }
-    if ((int) k == (int) NEGATIVE_ZERO) {
-      return -0.0;
-    }
-    if ((int) k == (int) POSITIVE_ZERO) {
-      return 0.0;
-    }
-
-    final long e = (long) unpackGetExponentUnbiased(k);
-    final long s = (long) unpackGetSign(k);
-    final long n = (long) unpackGetSignificand(k);
-
-    /*
-     * Shift the sign bit to the position at which it will appear in the
-     * resulting value.
-     */
-
-    final long rsr = s << 63;
-
-    /*
-     * 1. Bias the exponent.
-     *
-     * 2. Shift the result left to the position at which it will appear in the
-     * resulting value.
-     */
-
-    final long reb = (e + Binary64.BIAS);
-    final long rer = reb << 52;
-
-    /*
-     * Shift the significand left to the position at which it will appear in
-     * the resulting value.
-     */
-
-    final long rnr = n << 42;
-    return Double.longBitsToDouble(rsr | rer | rnr);
-  }
-
-  /**
-   * <p>
-   * Convert a packed {@code binary16} value {@code k} to a
-   * single-precision floating point value.
-   * </p>
-   * <p>
-   * The function returns:
-   * </p>
-   * <ul>
-   * <li>{@code NaN} iff {@code isNaN(k)}</li>
-   * <li>{@link Float#POSITIVE_INFINITY} iff
-   * <code>k == {@link #POSITIVE_INFINITY}</code></li>
-   * <li>{@link Float#NEGATIVE_INFINITY} iff
-   * <code>k == {@link #NEGATIVE_INFINITY}</code></li>
-   * <li>{@code -0.0} iff <code>k == {@link #NEGATIVE_ZERO}</code></li>
-   * <li>{@code 0.0} iff <code>k == {@link #POSITIVE_ZERO}</code></li>
-   * <li>{@code (-1.0 * n) * (2 ^ e) * 1.s}, for the decoded sign
-   * {@code n} of {@code k}, the decoded exponent {@code e} of
-   * {@code k}, and the decoded significand {@code s} of
-   * {@code k}.</li>
-   * </ul>
-   *
-   * @param k A packed {@code binary16} value
-   *
-   * @return A floating point value
-   *
-   * @see #packFloat(float)
-   */
-
-  public static float unpackFloat(
-    final char k)
-  {
-    if (isNaN(k)) {
-      return Float.NaN;
-    }
-    if ((int) k == (int) POSITIVE_INFINITY) {
-      return Float.POSITIVE_INFINITY;
-    }
-    if ((int) k == (int) NEGATIVE_INFINITY) {
-      return Float.NEGATIVE_INFINITY;
-    }
-    if ((int) k == (int) NEGATIVE_ZERO) {
-      return -0.0f;
-    }
-    if ((int) k == (int) POSITIVE_ZERO) {
-      return 0.0f;
-    }
-
-    final int e = unpackGetExponentUnbiased(k);
-    final int s = unpackGetSign(k);
-    final int n = unpackGetSignificand(k);
-
-    /*
-     * Shift the sign bit to the position at which it will appear in the
-     * resulting value.
-     */
-
-    final int rsr = s << 31;
-
-    /*
-     * 1. Bias the exponent.
-     *
-     * 2. Shift the result left to the position at which it will appear in the
-     * resulting value.
-     */
-
-    final int reb = (e + Binary32.BIAS);
-    final int rer = reb << 23;
-
-    /*
-     * Shift the significand left to the position at which it will appear in
-     * the resulting value.
-     */
-
-    final int rnr = n << 13;
-    return Float.intBitsToFloat(rsr | rer | rnr);
-  }
 
   /**
    * <p>
@@ -606,6 +637,6 @@ public final class Binary16
   public static int unpackGetSignificand(
     final char k)
   {
-    return (int) k & MASK_SIGNIFICAND;
+    return (int) k & MASK_MANTISSA;
   }
 }
