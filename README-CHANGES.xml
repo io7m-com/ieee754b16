@@ -3,6 +3,17 @@
   <c:project>com.io7m.ieee754b16</c:project>
 
   <c:release c:ticket-system="com.github.io7m.ieee754b16">
+    <c:date>2017-06-18</c:date>
+    <c:version>1.0.4</c:version>
+
+    <c:item>
+      <c:date>2017-06-18</c:date>
+      <c:type-code-fix/>
+      <c:summary>Use much more accurate conversion routines; properly handle subnormals.</c:summary>
+    </c:item>
+  </c:release>
+
+  <c:release c:ticket-system="com.github.io7m.ieee754b16">
     <c:date>2017-04-06</c:date>
     <c:version>1.0.3</c:version>
 

@@ -8,17 +8,16 @@
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
     <artifactId>com.io7m.ieee754b16</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
   </parent>
   <artifactId>com.io7m.ieee754b16.documentation</artifactId>
 
   <packaging>jar</packaging>
   <name>com.io7m.ieee754b16.documentation</name>
-  <description>Functions for converting to/from IEE754 binary16 values (Documentation)</description>
+  <description>Functions for converting to/from IEEE754 binary16 values (Documentation)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
 
   <properties>
-    <io7m.api.previousArtifactId>io7m-ieee754b16-documentation</io7m.api.previousArtifactId>
     <mdep.analyze.skip>true</mdep.analyze.skip>
   </properties>
 

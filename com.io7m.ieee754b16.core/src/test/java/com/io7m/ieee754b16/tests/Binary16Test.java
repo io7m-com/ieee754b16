@@ -57,7 +57,6 @@ public final class Binary16Test
    * Infinities are infinite.
    */
 
-
   @Test
   public void testInfinite()
   {
@@ -74,7 +73,6 @@ public final class Binary16Test
    * The unencoded exponent of infinity is 16.
    */
 
-
   @Test
   public void testInfinityExponent()
   {
@@ -86,7 +84,6 @@ public final class Binary16Test
   /**
    * The unencoded exponent of infinity is 16.
    */
-
 
   @Test
   public void
@@ -100,7 +97,6 @@ public final class Binary16Test
   /**
    * The sign of negative infinity is 1.
    */
-
 
   @Test
   public void
@@ -116,7 +112,6 @@ public final class Binary16Test
    * The significand of infinity is 0.
    */
 
-
   @Test
   public void
   testInfinityNegativeSignificand()
@@ -129,7 +124,6 @@ public final class Binary16Test
   /**
    * The sign of positive infinity is 0.
    */
-
 
   @Test
   public void testInfinitySign()
@@ -144,7 +138,6 @@ public final class Binary16Test
    * The significand of infinity is 0.
    */
 
-
   @Test
   public void
   testInfinitySignificand()
@@ -157,7 +150,6 @@ public final class Binary16Test
   /**
    * NaN is NaN.
    */
-
 
   @Test
   public void testNaN()
@@ -182,7 +174,6 @@ public final class Binary16Test
    * Packing NaN results in NaN.
    */
 
-
   @Test
   public void testPackDoubleNaN()
   {
@@ -194,7 +185,6 @@ public final class Binary16Test
   /**
    * Packing negative infinity results in negative infinity.
    */
-
 
   @Test
   public void
@@ -208,7 +198,6 @@ public final class Binary16Test
    * Packing negative zero results in negative zero.
    */
 
-
   @Test
   public void
   testPackDoubleNegativeZero()
@@ -220,7 +209,6 @@ public final class Binary16Test
   /**
    * Packing positive infinity results in positive infinity.
    */
-
 
   @Test
   public void
@@ -254,33 +242,51 @@ public final class Binary16Test
       final double in = (double) i;
       final char packed = Binary16.packDouble(in);
       final float r = Binary16.unpackFloat(packed);
+
+      double delta = 0.001;
+      if (i >= 15) {
+        delta = 0.01;
+      }
+      if (i >= 127) {
+        delta = 0.1;
+      }
+      if (i >= 1023) {
+        delta = 0.2;
+      }
+      if (i >= 2047) {
+        delta = 1.0;
+      }
+      if (i >= 4095) {
+        delta = 2.0;
+      }
+      if (i >= 8190) {
+        delta = 4.0;
+      }
+      if (i >= 16380) {
+        delta = 8.0;
+      }
+      if (i >= 32760) {
+        delta = 16.0;
+      }
+      if (i >= 65520) {
+        delta = 32.0;
+      }
+
       System.out.println(String.format(
-        "packed: 0x%04x 0b%s in: %f unpacked: %f",
+        "packed: 0x%04x 0b%s in: %f unpacked: %f diff: %f delta: %f",
         Integer.valueOf((int) packed),
         Binary16.toRawBinaryString(packed),
         Double.valueOf(in),
-        Float.valueOf(r)));
+        Double.valueOf(r),
+        Math.abs(in - r),
+        delta));
 
-      if (i <= 2048) {
-        Assert.assertEquals(in, (double) r, 0.0);
+      if (i < 65536) {
+        Assert.assertEquals(in, r, delta);
       }
-      if ((i > 2048) && (i <= 4096)) {
-        Assert.assertTrue((r % 2.0F) == (float) 0);
-      }
-      if ((i > 4096) && (i <= 8192)) {
-        Assert.assertTrue((r % 4.0F) == (float) 0);
-      }
-      if ((i > 8192) && (i <= 16384)) {
-        Assert.assertTrue((r % 8.0F) == (float) 0);
-      }
-      if ((i > 16384) && (i <= 32768)) {
-        Assert.assertTrue((r % 16.0F) == (float) 0);
-      }
-      if ((i > 32768) && (i < 65536)) {
-        Assert.assertTrue((r % 32.0F) == (float) 0);
-      }
+
       if (i == 65536) {
-        Assert.assertTrue(Double.isInfinite((double) r));
+        Assert.assertTrue(Double.isInfinite(r));
       }
     }
   }
@@ -288,7 +294,6 @@ public final class Binary16Test
   /**
    * Integers in the range [0, 65520] should be representable.
    */
-
 
   @Test
   public void
@@ -318,7 +323,6 @@ public final class Binary16Test
    * Packing NaN results in NaN.
    */
 
-
   @Test
   public void testPackFloatNaN()
   {
@@ -330,7 +334,6 @@ public final class Binary16Test
   /**
    * Packing negative infinity results in negative infinity.
    */
-
 
   @Test
   public void
@@ -344,7 +347,6 @@ public final class Binary16Test
    * Packing negative zero results in negative zero.
    */
 
-
   @Test
   public void
   testPackFloatNegativeZero()
@@ -355,7 +357,6 @@ public final class Binary16Test
   /**
    * Packing positive infinity results in positive infinity.
    */
-
 
   @Test
   public void
@@ -369,7 +370,6 @@ public final class Binary16Test
    * Packing positive zero results in positive zero.
    */
 
-
   @Test
   public void
   testPackFloatPositiveZero()
@@ -382,7 +382,6 @@ public final class Binary16Test
    * Integers in the range [0, 65520] should be representable.
    */
 
-
   @Test
   public void
   testPackFloatUnpackDouble()
@@ -391,31 +390,49 @@ public final class Binary16Test
       final float in = (float) i;
       final char packed = Binary16.packFloat(in);
       final double r = Binary16.unpackDouble(packed);
+
+      double delta = 0.001;
+      if (i >= 15) {
+        delta = 0.01;
+      }
+      if (i >= 127) {
+        delta = 0.1;
+      }
+      if (i >= 1023) {
+        delta = 0.2;
+      }
+      if (i >= 2047) {
+        delta = 1.0;
+      }
+      if (i >= 4095) {
+        delta = 2.0;
+      }
+      if (i >= 8190) {
+        delta = 4.0;
+      }
+      if (i >= 16380) {
+        delta = 8.0;
+      }
+      if (i >= 32760) {
+        delta = 16.0;
+      }
+      if (i >= 65520) {
+        delta = 32.0;
+      }
+
       System.out.println(String.format(
-        "packed: 0x%04x 0b%s in: %f unpacked: %f",
+        "packed: 0x%04x 0b%s in: %f unpacked: %f diff: %f delta: %f",
         Integer.valueOf((int) packed),
         Binary16.toRawBinaryString(packed),
-        Float.valueOf(in),
-        Double.valueOf(r)));
+        Double.valueOf(in),
+        Double.valueOf(r),
+        Math.abs(in - r),
+        delta));
 
-      if (i <= 2048) {
-        Assert.assertEquals((double) in, r, 0.0);
+      if (i < 65536) {
+        Assert.assertEquals(in, r, delta);
       }
-      if ((i > 2048) && (i <= 4096)) {
-        Assert.assertTrue((r % 2.0) == (double) 0);
-      }
-      if ((i > 4096) && (i <= 8192)) {
-        Assert.assertTrue((r % 4.0) == (double) 0);
-      }
-      if ((i > 8192) && (i <= 16384)) {
-        Assert.assertTrue((r % 8.0) == (double) 0);
-      }
-      if ((i > 16384) && (i <= 32768)) {
-        Assert.assertTrue((r % 16.0) == (double) 0);
-      }
-      if ((i > 32768) && (i < 65536)) {
-        Assert.assertTrue((r % 32.0) == (double) 0);
-      }
+
       if (i == 65536) {
         Assert.assertTrue(Double.isInfinite(r));
       }
@@ -423,43 +440,60 @@ public final class Binary16Test
   }
 
   /**
-   * Integers in the range [0, 65520] should be representable.
+   * Integers in the range [1, 65520] should be representable.
    */
-
 
   @Test
   public void
   testPackUnpackDouble()
   {
-    for (int i = 0; i <= 65536; ++i) {
+    for (int i = 1; i <= 65536; ++i) {
       final double in = (double) i;
       final char packed = Binary16.packDouble(in);
       final double r = Binary16.unpackDouble(packed);
+
+      double delta = 0.001;
+      if (i >= 15) {
+        delta = 0.01;
+      }
+      if (i >= 127) {
+        delta = 0.1;
+      }
+      if (i >= 1023) {
+        delta = 0.2;
+      }
+      if (i >= 2047) {
+        delta = 1.0;
+      }
+      if (i >= 4095) {
+        delta = 2.0;
+      }
+      if (i >= 8190) {
+        delta = 4.0;
+      }
+      if (i >= 16380) {
+        delta = 8.0;
+      }
+      if (i >= 32760) {
+        delta = 16.0;
+      }
+      if (i >= 65520) {
+        delta = 32.0;
+      }
+
       System.out.println(String.format(
-        "packed: 0x%04x 0b%s in: %f unpacked: %f",
+        "packed: 0x%04x 0b%s in: %f unpacked: %f diff: %f delta: %f",
         Integer.valueOf((int) packed),
         Binary16.toRawBinaryString(packed),
         Double.valueOf(in),
-        Double.valueOf(r)));
+        Double.valueOf(r),
+        Math.abs(in - r),
+        delta));
 
-      if (i <= 2048) {
-        Assert.assertEquals(in, r, 0.0);
+      if (i < 65536) {
+        Assert.assertEquals(in, r, delta);
       }
-      if ((i > 2048) && (i <= 4096)) {
-        Assert.assertTrue((r % 2.0) == (double) 0);
-      }
-      if ((i > 4096) && (i <= 8192)) {
-        Assert.assertTrue((r % 4.0) == (double) 0);
-      }
-      if ((i > 8192) && (i <= 16384)) {
-        Assert.assertTrue((r % 8.0) == (double) 0);
-      }
-      if ((i > 16384) && (i <= 32768)) {
-        Assert.assertTrue((r % 16.0) == (double) 0);
-      }
-      if ((i > 32768) && (i < 65536)) {
-        Assert.assertTrue((r % 32.0) == (double) 0);
-      }
+
       if (i == 65536) {
         Assert.assertTrue(Double.isInfinite(r));
       }
@@ -467,9 +501,33 @@ public final class Binary16Test
   }
 
   /**
-   * Integers in the range [0, 65520] should be representable.
+   * Show that packing/unpacking is an identity operation for all packed values.
    */
 
+  @Test
+  public void
+  testPackUnpackCompleteDouble()
+  {
+    for (char index = (char) 0; index < 65535; ++index) {
+      final double r0 = Binary16.unpackDouble(index);
+      final char p0 = Binary16.packDouble(r0);
+      final double r1 = Binary16.unpackDouble(p0);
+
+      System.out.println(String.format(
+        "index: %04x unpack0: %.8f packed: %04x unpack1: %.8f diff: %.8f",
+        (int) index,
+        r0,
+        (int) p0,
+        r1,
+        Math.abs(r1 - r0)));
+
+      Assert.assertEquals(r0, r1, 0.0);
+    }
+  }
+
+  /**
+   * Integers in the range [0, 65520] should be representable.
+   */
 
   @Test
   public void
@@ -479,32 +537,51 @@ public final class Binary16Test
       final float in = (float) i;
       final char packed = Binary16.packFloat(in);
       final float r = Binary16.unpackFloat(packed);
+
+      double delta = 0.001;
+      if (i >= 15) {
+        delta = 0.01;
+      }
+      if (i >= 127) {
+        delta = 0.1;
+      }
+      if (i >= 1023) {
+        delta = 0.2;
+      }
+      if (i >= 2047) {
+        delta = 1.0;
+      }
+      if (i >= 4095) {
+        delta = 2.0;
+      }
+      if (i >= 8190) {
+        delta = 4.0;
+      }
+      if (i >= 16380) {
+        delta = 8.0;
+      }
+      if (i >= 32760) {
+        delta = 16.0;
+      }
+      if (i >= 65520) {
+        delta = 32.0;
+      }
+
       System.out.println(String.format(
-        "packed: 0x%04x 0b%s in: %f unpacked: %f",
+        "packed: 0x%04x 0b%s in: %f unpacked: %f diff: %f delta: %f",
         Integer.valueOf((int) packed),
         Binary16.toRawBinaryString(packed),
-        Float.valueOf(in),
-        Float.valueOf(r)));
-      if (i <= 2048) {
-        Assert.assertEquals((double) in, (double) r, 0.0);
+        Double.valueOf(in),
+        Double.valueOf(r),
+        Math.abs(in - r),
+        delta));
+
+      if (i < 65536) {
+        Assert.assertEquals(in, r, delta);
       }
-      if ((i > 2048) && (i <= 4096)) {
-        Assert.assertTrue((r % 2.0F) == (float) 0);
-      }
-      if ((i > 4096) && (i <= 8192)) {
-        Assert.assertTrue((r % 4.0F) == (float) 0);
-      }
-      if ((i > 8192) && (i <= 16384)) {
-        Assert.assertTrue((r % 8.0F) == (float) 0);
-      }
-      if ((i > 16384) && (i <= 32768)) {
-        Assert.assertTrue((r % 16.0F) == (float) 0);
-      }
-      if ((i > 32768) && (i < 65536)) {
-        Assert.assertTrue((r % 32.0F) == (float) 0);
-      }
+
       if (i == 65536) {
-        Assert.assertTrue(Float.isInfinite(r));
+        Assert.assertTrue(Double.isInfinite(r));
       }
     }
   }
@@ -512,7 +589,6 @@ public final class Binary16Test
   /**
    * Signs in the range [0, 1] are encoded and decoded correctly.
    */
-
 
   @Test
   public void testSignIdentity()
@@ -531,7 +607,6 @@ public final class Binary16Test
   /**
    * Significands in the range [0, 1023] are encoded and decoded correctly.
    */
-
 
   @Test
   public void
@@ -552,7 +627,6 @@ public final class Binary16Test
    * Unpacking NaN results in NaN.
    */
 
-
   @Test
   public void testUnpackDoubleNaN()
   {
@@ -563,7 +637,6 @@ public final class Binary16Test
   /**
    * Unpacking negative infinity results in negative infinity.
    */
-
 
   @Test
   public void
@@ -577,7 +650,6 @@ public final class Binary16Test
    * Unpacking negative zero results in negative zero.
    */
 
-
   @Test
   public void
   testUnpackDoubleNegativeZero()
@@ -589,7 +661,6 @@ public final class Binary16Test
    * Unpacking 1.0 results in 1.0.
    */
 
-
   @Test
   public void
   testUnpackDoubleOne()
@@ -598,13 +669,12 @@ public final class Binary16Test
     final double r = Binary16.unpackDouble(one);
     System.out.println(String.format("0x%04x -> %f", Integer.valueOf((int) one),
                                      Double.valueOf(r)));
-    Assert.assertEquals(r, 1.0, 0.0);
+    Assert.assertEquals(r, 1.0, 0.001);
   }
 
   /**
    * Unpacking -1.0 results in -1.0.
    */
-
 
   @Test
   public void
@@ -614,38 +684,36 @@ public final class Binary16Test
     final double r = Binary16.unpackDouble(one);
     System.out.println(String.format("0x%04x -> %f", Integer.valueOf((int) one),
                                      Double.valueOf(r)));
-    Assert.assertEquals(r, -1.0, 0.0);
+    Assert.assertEquals(r, -1.0, 0.001);
   }
 
   /**
    * Unpacking positive infinity results in positive infinity.
    */
 
-
   @Test
   public void
   testUnpackDoublePositiveInfinity()
   {
-    Assert.assertTrue(Double.POSITIVE_INFINITY == Binary16
-      .unpackDouble(Binary16.POSITIVE_INFINITY));
+    Assert.assertTrue(
+      Double.POSITIVE_INFINITY == Binary16.unpackDouble(Binary16.POSITIVE_INFINITY));
   }
 
   /**
    * Unpacking positive zero results in positive zero.
    */
 
-
   @Test
   public void
   testUnpackDoublePositiveZero()
   {
-    Assert.assertTrue(0.0 == Binary16.unpackDouble(Binary16.POSITIVE_ZERO));
+    Assert.assertTrue(
+      0.0 == Binary16.unpackDouble(Binary16.POSITIVE_ZERO));
   }
 
   /**
    * Unpacking 2.0 results in 2.0.
    */
-
 
   @Test
   public void
@@ -657,13 +725,12 @@ public final class Binary16Test
       "%04x -> %f",
       Integer.valueOf((int) one),
       Double.valueOf(r)));
-    Assert.assertEquals(r, 2.0, 0.0);
+    Assert.assertEquals(r, 2.0, 0.001);
   }
 
   /**
    * Unpacking -2.0 results in -2.0.
    */
-
 
   @Test
   public void testUnpackDoubleTwoNegative()
@@ -674,13 +741,12 @@ public final class Binary16Test
       "%04x -> %f",
       Integer.valueOf((int) one),
       Double.valueOf(r)));
-    Assert.assertEquals(r, -2.0, 0.0);
+    Assert.assertEquals(r, -2.0, 0.001);
   }
 
   /**
    * Unpacking NaN results in NaN.
    */
-
 
   @Test
   public void testUnpackFloatNaN()
@@ -693,7 +759,6 @@ public final class Binary16Test
    * Unpacking negative infinity results in negative infinity.
    */
 
-
   @Test
   public void testUnpackFloatNegativeInfinity()
   {
@@ -705,7 +770,6 @@ public final class Binary16Test
    * Unpacking negative zero results in negative zero.
    */
 
-
   @Test
   public void testUnpackFloatNegativeZero()
   {
@@ -716,7 +780,6 @@ public final class Binary16Test
    * Unpacking 1.0 results in 1.0.
    */
 
-
   @Test
   public void testUnpackFloatOne()
   {
@@ -724,13 +787,12 @@ public final class Binary16Test
     final float r = Binary16.unpackFloat(one);
     System.out.println(String.format("0x%04x -> %f", Integer.valueOf((int) one),
                                      Float.valueOf(r)));
-    Assert.assertEquals((double) r, 1.0, 0.0);
+    Assert.assertEquals((double) r, 1.0, 0.001);
   }
 
   /**
    * Unpacking -1.0 results in -1.0.
    */
-
 
   @Test
   public void testUnpackFloatOneNegative()
@@ -739,11 +801,13 @@ public final class Binary16Test
     final float r = Binary16.unpackFloat(one);
     System.out.println(String.format("0x%04x -> %f", Integer.valueOf((int) one),
                                      Float.valueOf(r)));
-    Assert.assertEquals((double) r, -1.0, 0.0);
+    Assert.assertEquals((double) r, -1.0, 0.001);
   }
 
   /**
    * The constructor is unreachable.
+   *
+   * @throws Exception On errors
    */
 
   @Test

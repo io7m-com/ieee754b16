@@ -8,16 +8,16 @@
   <parent>
     <groupId>com.io7m.primogenitor</groupId>
     <artifactId>com.io7m.primogenitor</artifactId>
-    <version>1.0.2</version>
+    <version>1.1.0</version>
   </parent>
 
   <groupId>com.io7m.ieee754b16</groupId>
   <artifactId>com.io7m.ieee754b16</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.ieee754b16</name>
-  <description>Functions for converting to/from IEE754 binary16 values</description>
+  <description>Functions for converting to/from IEEE754 binary16 values</description>
   <url>http://github.com/io7m/ieee754b16</url>
 
   <modules>
@@ -30,8 +30,9 @@
     <siteReposDirectory>com/io7m/ieee754b16</siteReposDirectory>
     <siteDocumentationDirectory>com/io7m/ieee754b16/com.io7m.ieee754b16.documentation</siteDocumentationDirectory>
     <io7m.checkstyle.artifact>com.io7m.ieee754b16.checkstyle</io7m.checkstyle.artifact>
+    <io7m.checkstyle.version>${project.version}</io7m.checkstyle.version>
     <io7m.checkstyle.path>/com/io7m/ieee754b16/checkstyle/checkstyle.xml</io7m.checkstyle.path>
-    <io7m.api.previousVersion>1.0.2</io7m.api.previousVersion>
+    <io7m.api.previousVersion>1.0.3</io7m.api.previousVersion>
     <io7m.javadoc.docLint/>
   </properties>
 
