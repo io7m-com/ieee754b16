@@ -13,7 +13,7 @@
 
   <groupId>com.io7m.ieee754b16</groupId>
   <artifactId>com.io7m.ieee754b16</artifactId>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.4</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.ieee754b16</name>
