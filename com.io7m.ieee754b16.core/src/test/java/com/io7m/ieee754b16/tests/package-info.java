@@ -14,6 +14,9 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-@com.io7m.jnull.NonNullByDefault
+/**
+ * Unit tests.
+ */
+
 package com.io7m.ieee754b16.tests;
 

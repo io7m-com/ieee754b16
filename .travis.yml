@@ -1,23 +1,15 @@
-env:
-  _JAVA_OPTIONS="-Xms1G -Xmx4G"
-
 language: java
 
 jdk:
-  - oraclejdk8
-  - oraclejdk7
-  - openjdk7
-
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+  - oraclejdk9
 
 install: true
 
 script:
-  - mvn clean verify
+  - mvn --errors clean verify
+  - bash <(curl -s https://codecov.io/bash) -f com.io7m.ieee754b16.core/target/site/jacoco/jacoco.xml
 
 notifications:
   irc: "chat.freenode.net#io7m"
+
 

@@ -3,6 +3,21 @@
   <c:project>com.io7m.ieee754b16</c:project>
 
   <c:release c:ticket-system="com.github.io7m.ieee754b16">
+    <c:date>2017-11-04</c:date>
+    <c:version>2.0.0</c:version>
+    <c:item>
+      <c:date>2017-11-04</c:date>
+      <c:type-code-change/>
+      <c:summary>Require JDK 9, publish Java 9 modules.</c:summary>
+    </c:item>
+    <c:item>
+      <c:date>2017-11-04</c:date>
+      <c:type-code-change/>
+      <c:summary>Remove com.io7m.jnull dependency.</c:summary>
+    </c:item>
+  </c:release>
+
+  <c:release c:ticket-system="com.github.io7m.ieee754b16">
     <c:date>2017-06-18</c:date>
     <c:version>1.0.4</c:version>
 

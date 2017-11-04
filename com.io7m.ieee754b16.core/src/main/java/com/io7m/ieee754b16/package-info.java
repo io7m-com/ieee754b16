@@ -14,6 +14,9 @@
  * IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-@com.io7m.jnull.NonNullByDefault
+/**
+ * Float conversion functions.
+ */
+
 package com.io7m.ieee754b16;
 
