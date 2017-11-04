@@ -17,10 +17,4 @@
   <description>Functions for converting to/from IEEE754 binary16 values (Checkstyle policy)</description>
   <url>http://io7m.github.io/ieee754b16/</url>
 
-  <scm>
-    <url>${project.parent.scm.url}</url>
-    <connection>${project.parent.scm.connection}</connection>
-    <developerConnection>${project.parent.scm.developerConnection}</developerConnection>
-  </scm>
-
 </project>
