@@ -6,7 +6,7 @@ jdk:
 install: true
 
 script:
-  - mvn --errors clean verify
+  - mvn --errors clean verify site
   - bash <(curl -s https://codecov.io/bash) -f com.io7m.ieee754b16.core/target/site/jacoco/jacoco.xml
 
 notifications:
