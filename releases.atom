@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:feed xmlns:a="http://www.w3.org/2005/Atom">
+  <a:author>
+    <a:name>minisite</a:name>
+    <a:email>contact@io7m.com</a:email>
+  </a:author>
+  <a:id>http://github.com/io7m/ieee754b16/releases.atom</a:id>
+  <a:title>com.io7m.ieee754b16 Releases</a:title>
+  <a:updated>2017-12-07T12:23:42+00:00</a:updated>
+  <a:entry>
+    <a:id>2.0.0</a:id>
+    <a:updated>2017-11-04T00:00:00+00:00</a:updated>
+    <a:title>com.io7m.ieee754b16 2.0.0 released</a:title>
+    <a:content type="text">com.io7m.ieee754b16 2.0.0 released</a:content>
+  </a:entry>
+  <a:entry>
+    <a:id>1.0.4</a:id>
+    <a:updated>2017-06-18T00:00:00+00:00</a:updated>
+    <a:title>com.io7m.ieee754b16 1.0.4 released</a:title>
+    <a:content type="text">com.io7m.ieee754b16 1.0.4 released</a:content>
+  </a:entry>
+  <a:entry>
+    <a:id>1.0.3</a:id>
+    <a:updated>2017-04-06T00:00:00+00:00</a:updated>
+    <a:title>com.io7m.ieee754b16 1.0.3 released</a:title>
+    <a:content type="text">com.io7m.ieee754b16 1.0.3 released</a:content>
+  </a:entry>
+  <a:entry>
+    <a:id>1.0.2</a:id>
+    <a:updated>2016-08-03T00:00:00+00:00</a:updated>
+    <a:title>com.io7m.ieee754b16 1.0.2 released</a:title>
+    <a:content type="text">com.io7m.ieee754b16 1.0.2 released</a:content>
+  </a:entry>
+  <a:entry>
+    <a:id>1.0.1</a:id>
+    <a:updated>2015-08-13T00:00:00+00:00</a:updated>
+    <a:title>com.io7m.ieee754b16 1.0.1 released</a:title>
+    <a:content type="text">com.io7m.ieee754b16 1.0.1 released</a:content>
+  </a:entry>
+  <a:entry>
+    <a:id>1.0.0</a:id>
+    <a:updated>2014-06-30T00:00:00+00:00</a:updated>
+    <a:title>com.io7m.ieee754b16 1.0.0 released</a:title>
+    <a:content type="text">com.io7m.ieee754b16 1.0.0 released</a:content>
+  </a:entry>
+</a:feed>
