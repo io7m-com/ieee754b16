@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<div xmlns="http://www.w3.org/1999/xhtml">
+  <ul>
+    <li>High coverage test suite (100%, minus an unreachable private constructor)</li>
+    <li>Fully documented</li>
+    <li><a href="https://www.osgi.org/">OSGi</a>-ready</li>
+    <li><a href="https://en.wikipedia.org/wiki/Java_Platform_Module_System">JPMS</a>-ready</li>
+    <li>ISC license</li>
+  </ul>
+</div>

@@ -1,80 +1,67 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<c:changelog xmlns:c="http://schemas.io7m.com/changelog/2.0.0">
-  <c:project>com.io7m.ieee754b16</c:project>
-
-  <c:release c:ticket-system="com.github.io7m.ieee754b16">
-    <c:date>2017-06-18</c:date>
-    <c:version>1.0.4</c:version>
-
-    <c:item>
-      <c:date>2017-06-18</c:date>
-      <c:type-code-fix/>
-      <c:summary>Use much more accurate conversion routines; properly handle subnormals.</c:summary>
-    </c:item>
-  </c:release>
-
-  <c:release c:ticket-system="com.github.io7m.ieee754b16">
-    <c:date>2017-04-06</c:date>
-    <c:version>1.0.3</c:version>
-
-    <c:item>
-      <c:date>2017-04-06</c:date>
-      <c:type-code-fix/>
-      <c:summary>Rename project. Use the new primogenitor POM and 2017 project conventions.</c:summary>
-    </c:item>
-  </c:release>
-
-  <c:release c:ticket-system="com.github.io7m.ieee754b16">
-    <c:date>2016-08-03</c:date>
-    <c:version>1.0.2</c:version>
-    <c:item>
-      <c:date>2016-08-03</c:date>
-      <c:type-code-fix/>
-      <c:summary>Update POM files to 2016 standards. Update plugins.</c:summary>
-    </c:item>
-    <c:item>
-      <c:date>2016-08-03</c:date>
-      <c:type-code-fix/>
-      <c:summary>The packaged jar is now an OSGi bundle.</c:summary>
-    </c:item>
-    <c:item>
-      <c:date>2016-08-03</c:date>
-      <c:type-code-change/>
-      <c:summary>The package will no longer compile on JDK 6 due to Checkstyle, but the compiled code is still JDK 6 compatible.</c:summary>
-    </c:item>
-  </c:release>
-
-  <c:release c:ticket-system="com.github.io7m.ieee754b16">
-    <c:date>2015-08-13</c:date>
-    <c:version>1.0.1</c:version>
-    <c:item>
-      <c:date>2015-08-13</c:date>
-      <c:type-code-new/>
-      <c:summary>Migrate to GitHub.</c:summary>
-    </c:item>
-    <c:item>
-      <c:date>2014-12-03</c:date>
-      <c:type-code-fix/>
-      <c:summary>Ensure source jars for unit tests are created.</c:summary>
-    </c:item>
-  </c:release>
-
-  <c:release c:ticket-system="com.io7m.fossil.ieee754b16">
-    <c:date>2014-06-30</c:date>
-    <c:version>1.0.0</c:version>
-    <c:item>
-      <c:date>2014-06-30</c:date>
-      <c:type-code-new/>
-      <c:summary>Initial version</c:summary>
-    </c:item>
-  </c:release>
-
-  <c:ticket-system xml:id="com.io7m.fossil.ieee754b16">
-    <c:ticket-url>http://fossil.io7m.com/repo.cgi/io7m-ieee754b16/tktview?name=</c:ticket-url>
-  </c:ticket-system>
-
-  <c:ticket-system xml:id="com.github.io7m.ieee754b16">
-    <c:ticket-url>http://github.com/io7m/ieee754b16/issues/</c:ticket-url>
-  </c:ticket-system>
-
+<c:changelog xmlns:c="urn:com.io7m.changelog:4.0" project="com.io7m.ieee754b16">
+   <c:releases>
+      <c:release date="2017-11-04T00:00:00+00:00"
+                 version="2.0.0"
+                 ticket-system="com.github.io7m.ieee754b16">
+         <c:changes>
+            <c:change date="2017-11-04T00:00:00+00:00"
+                      summary="Require JDK 9, publish Java 9 modules."
+                      compatible="false"/>
+            <c:change date="2017-11-04T00:00:00+00:00"
+                      summary="Remove com.io7m.jnull dependency."
+                      compatible="false"/>
+         </c:changes>
+      </c:release>
+      <c:release date="2017-06-18T00:00:00+00:00"
+                 version="1.0.4"
+                 ticket-system="com.github.io7m.ieee754b16">
+         <c:changes>
+            <c:change date="2017-06-18T00:00:00+00:00"
+                      summary="Use much more accurate conversion routines; properly handle subnormals."/>
+         </c:changes>
+      </c:release>
+      <c:release date="2017-04-06T00:00:00+00:00"
+                 version="1.0.3"
+                 ticket-system="com.github.io7m.ieee754b16">
+         <c:changes>
+            <c:change date="2017-04-06T00:00:00+00:00"
+                      summary="Rename project. Use the new primogenitor POM and 2017 project conventions."/>
+         </c:changes>
+      </c:release>
+      <c:release date="2016-08-03T00:00:00+00:00"
+                 version="1.0.2"
+                 ticket-system="com.github.io7m.ieee754b16">
+         <c:changes>
+            <c:change date="2016-08-03T00:00:00+00:00"
+                      summary="Update POM files to 2016 standards. Update plugins."/>
+            <c:change date="2016-08-03T00:00:00+00:00"
+                      summary="The packaged jar is now an OSGi bundle."/>
+            <c:change date="2016-08-03T00:00:00+00:00"
+                      summary="The package will no longer compile on JDK 6 due to Checkstyle, but the compiled code is still JDK 6 compatible."
+                      compatible="false"/>
+         </c:changes>
+      </c:release>
+      <c:release date="2015-08-13T00:00:00+00:00"
+                 version="1.0.1"
+                 ticket-system="com.github.io7m.ieee754b16">
+         <c:changes>
+            <c:change date="2015-08-13T00:00:00+00:00" summary="Migrate to GitHub."/>
+            <c:change date="2014-12-03T00:00:00+00:00"
+                      summary="Ensure source jars for unit tests are created."/>
+         </c:changes>
+      </c:release>
+      <c:release date="2014-06-30T00:00:00+00:00"
+                 version="1.0.0"
+                 ticket-system="com.io7m.fossil.ieee754b16">
+         <c:changes>
+            <c:change date="2014-06-30T00:00:00+00:00" summary="Initial version"/>
+         </c:changes>
+      </c:release>
+   </c:releases>
+   <c:ticket-systems>
+      <c:ticket-system id="com.io7m.fossil.ieee754b16"
+                       url="http://fossil.io7m.com/repo.cgi/io7m-ieee754b16/tktview?name="/>
+      <c:ticket-system id="com.github.io7m.ieee754b16"
+                       url="http://github.com/io7m/ieee754b16/issues/"/>
+   </c:ticket-systems>
 </c:changelog>
