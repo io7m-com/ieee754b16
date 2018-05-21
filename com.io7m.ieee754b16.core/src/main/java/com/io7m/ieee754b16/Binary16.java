@@ -91,8 +91,7 @@ public final class Binary16
     final int n =
       (int) packSetExponentUnbiasedUnchecked(16)
         | (int) packSetSignificandUnchecked(1);
-    final char c = (char) n;
-    return c;
+    return (char) n;
   }
 
   /**
