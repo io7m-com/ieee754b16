@@ -79,7 +79,7 @@
       <dependency>
         <groupId>com.io7m.junreachable</groupId>
         <artifactId>com.io7m.junreachable.core</artifactId>
-        <version>2.1.1</version>
+        <version>3.0.0</version>
       </dependency>
 
       <dependency>
