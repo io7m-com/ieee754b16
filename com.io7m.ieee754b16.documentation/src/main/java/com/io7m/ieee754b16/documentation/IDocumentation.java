@@ -26,6 +26,11 @@ import java.net.URL;
 
 public final class IDocumentation
 {
+  private IDocumentation()
+  {
+
+  }
+
   public static URI getDocumentationXMLLocation()
   {
     try {
