@@ -13,7 +13,7 @@
 
   <groupId>com.io7m.ieee754b16</groupId>
   <artifactId>com.io7m.ieee754b16</artifactId>
-  <version>3.0.0</version>
+  <version>3.0.1-SNAPSHOT</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.ieee754b16</name>
@@ -26,7 +26,7 @@
   </modules>
 
   <properties>
-    <io7m.api.previousVersion>2.0.0</io7m.api.previousVersion>
+    <io7m.api.previousVersion>3.0.0</io7m.api.previousVersion>
   </properties>
 
   <licenses>
