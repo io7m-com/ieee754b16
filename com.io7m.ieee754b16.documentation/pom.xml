@@ -8,14 +8,14 @@
   <parent>
     <groupId>com.io7m.ieee754b16</groupId>
     <artifactId>com.io7m.ieee754b16</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
   </parent>
   <artifactId>com.io7m.ieee754b16.documentation</artifactId>
 
   <packaging>jar</packaging>
   <name>com.io7m.ieee754b16.documentation</name>
   <description>Functions for converting to/from IEEE754 binary16 values (Documentation)</description>
-  <url>http://io7m.github.io/ieee754b16/</url>
+  <url>https://www.io7m.com/software/ieee754b16</url>
 
   <properties>
     <mdep.analyze.skip>true</mdep.analyze.skip>
@@ -26,6 +26,22 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>com.io7m.ieee754b16.core</artifactId>
       <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.annotation.versioning</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.annotation.bundle</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.io7m.primogenitor</groupId>
+      <artifactId>com.io7m.primogenitor.support</artifactId>
     </dependency>
   </dependencies>
 
@@ -89,49 +105,57 @@
         </executions>
       </plugin>
 
-      <!-- Javadoc handling -->
+      <!-- Unpack sources of dependencies -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
+        <artifactId>maven-dependency-plugin</artifactId>
         <executions>
-          <!-- Produce javadoc jar for Central -->
           <execution>
-            <id>attach-javadocs</id>
+            <id>unpack-sources</id>
             <phase>package</phase>
             <goals>
-              <goal>jar</goal>
+              <goal>unpack-dependencies</goal>
             </goals>
             <configuration>
-              <bottom><![CDATA[Copyright &#169; {currentYear} &lt;code@io7m.com&gt; http://io7m.com]]></bottom>
-              <archive>
-                <manifestEntries>
-                  <Specification-Title>${project.name}</Specification-Title>
-                  <Specification-Version>${project.version}</Specification-Version>
-                  <Specification-Vendor>io7m.com</Specification-Vendor>
-                  <Implementation-Title>${project.name}</Implementation-Title>
-                  <Implementation-Version>${project.version}</Implementation-Version>
-                  <Implementation-Vendor>io7m.com</Implementation-Vendor>
-                  <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-                  <Built-By>io7m</Built-By>
-                </manifestEntries>
-              </archive>
+              <excludes>module-info.java</excludes>
+              <includeGroupIds>${project.groupId}</includeGroupIds>
+              <classifier>sources</classifier>
+              <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
+              <outputDirectory>${project.build.directory}/javadoc-sources</outputDirectory>
             </configuration>
           </execution>
-          <!-- Produce aggregate dependency javadocs -->
           <execution>
-            <id>javadoc-aggregate</id>
+            <id>make-classpath</id>
             <phase>package</phase>
             <goals>
-              <goal>javadoc-no-fork</goal>
+              <goal>build-classpath</goal>
             </goals>
             <configuration>
-              <bottom><![CDATA[Copyright &#169; {currentYear} &lt;code@io7m.com&gt; http://io7m.com]]></bottom>
-              <outputDirectory>${project.build.directory}/apidocs</outputDirectory>
-              <includeDependencySources>true</includeDependencySources>
-              <includeTransitiveDependencySources>true</includeTransitiveDependencySources>
-              <dependencySourceIncludes>
-                <dependencySourceSet>com.io7m.ieee754b16*</dependencySourceSet>
-              </dependencySourceIncludes>
+              <outputFile>${project.build.directory}/javadoc-classpath</outputFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Javadoc handling -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <mainClass>com.io7m.primogenitor.support.TrivialJavadoc</mainClass>
+              <arguments>
+                <argument>${project.build.directory}/javadoc-sources</argument>
+                <argument>${project.build.directory}/javadoc-classpath</argument>
+                <argument>${project.build.directory}/documentation/apidocs</argument>
+                <argument>${project.build.directory}/javadoc-log.txt</argument>
+                <argument>${project.build.directory}/javadoc-options</argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>

@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.io7m.primogenitor</groupId>
-    <artifactId>com.io7m.primogenitor</artifactId>
-    <version>2.0.0</version>
+    <artifactId>com.io7m.primogenitor.full</artifactId>
+    <version>7.0.0</version>
   </parent>
 
   <groupId>com.io7m.ieee754b16</groupId>
   <artifactId>com.io7m.ieee754b16</artifactId>
-  <version>2.0.0</version>
+  <version>3.0.0</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.ieee754b16</name>
   <description>Functions for converting to/from IEEE754 binary16 values</description>
-  <url>http://github.com/io7m/ieee754b16</url>
+  <url>https://www.io7m.com/software/ieee754b16</url>
 
   <modules>
-    <module>com.io7m.ieee754b16.checkstyle</module>
     <module>com.io7m.ieee754b16.core</module>
     <module>com.io7m.ieee754b16.documentation</module>
   </modules>
 
   <properties>
-    <io7m.checkstyle.artifact>com.io7m.ieee754b16.checkstyle</io7m.checkstyle.artifact>
-    <io7m.checkstyle.version>${project.version}</io7m.checkstyle.version>
-    <io7m.checkstyle.path>/com/io7m/ieee754b16/checkstyle/checkstyle.xml</io7m.checkstyle.path>
-    <io7m.api.previousVersion>1.0.3</io7m.api.previousVersion>
+    <io7m.api.previousVersion>2.0.0</io7m.api.previousVersion>
   </properties>
 
   <licenses>
     <license>
       <name>ISC License</name>
-      <url>http://io7m.com/license/isc.txt</url>
+      <url>https://io7m.com/license/isc.txt</url>
     </license>
   </licenses>
 
@@ -51,20 +47,20 @@
       <id>io7m</id>
       <name>io7m</name>
       <email>code@io7m.com</email>
-      <url>http://io7m.com</url>
+      <url>https://io7m.com</url>
     </developer>
   </developers>
 
   <issueManagement>
-    <url>http://github.com/io7m/ieee754b16/issues</url>
+    <url>https://github.com/io7m/ieee754b16/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
 
   <distributionManagement>
     <site>
-      <id>GitHub</id>
-      <name>GitHub</name>
-      <url>http://io7m.github.io/ieee754b16</url>
+      <id>io7m.com</id>
+      <name>io7m.com</name>
+      <url>https://www.io7m.com/software/ieee754b16</url>
     </site>
     <repository>
       <id>sonatype-nexus-staging</id>
@@ -73,8 +69,8 @@
   </distributionManagement>
 
   <ciManagement>
-    <system>Travis CI</system>
-    <url>https://travis-ci.org/io7m/ieee754b16</url>
+    <system>GitHub Actions</system>
+    <url>https://github.com/ieee754b16/actions</url>
   </ciManagement>
 
   <prerequisites>
@@ -86,18 +82,35 @@
       <dependency>
         <groupId>com.io7m.junreachable</groupId>
         <artifactId>com.io7m.junreachable.core</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.io7m.primogenitor</groupId>
+        <artifactId>com.io7m.primogenitor.support</artifactId>
+        <version>7.0.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.annotation.versioning</artifactId>
+        <version>1.1.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.annotation.bundle</artifactId>
         <version>2.0.0</version>
       </dependency>
 
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.12</version>
+        <version>4.13.2</version>
       </dependency>
       <dependency>
         <groupId>org.hamcrest</groupId>
         <artifactId>hamcrest-core</artifactId>
-        <version>1.3</version>
+        <version>2.2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -105,22 +118,20 @@
   <build>
     <pluginManagement>
       <plugins>
-        <!-- Require JDK >= 9 -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <source>9</source>
-            <target>9</target>
-            <release>9</release>
-          </configuration>
-        </plugin>
-
         <!-- jstructural plugin for generating documentation. -->
         <plugin>
           <groupId>com.io7m.jstructural</groupId>
           <artifactId>io7m-jstructural-maven-plugin</artifactId>
           <version>5.0.0</version>
+        </plugin>
+
+        <!-- Spot bugs -->
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <configuration>
+            <excludeFilterFile>spotbugs-filter.xml</excludeFilterFile>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
