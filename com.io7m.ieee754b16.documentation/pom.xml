@@ -15,7 +15,7 @@
   <packaging>jar</packaging>
   <name>com.io7m.ieee754b16.documentation</name>
   <description>Functions for converting to/from IEEE754 binary16 values (Documentation)</description>
-  <url>http://io7m.github.io/ieee754b16/</url>
+  <url>https://www.io7m.com/software/ieee754b16</url>
 
   <properties>
     <mdep.analyze.skip>true</mdep.analyze.skip>
