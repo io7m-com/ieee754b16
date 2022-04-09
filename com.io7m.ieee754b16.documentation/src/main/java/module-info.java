@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Mark Raynsford <code@io7m.com> http://io7m.com
+ * Copyright © 2015 Mark Raynsford <code@io7m.com> https://www.io7m.com
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -16,6 +16,9 @@
 
 module com.io7m.ieee754b16.documentation
 {
+  requires static org.osgi.annotation.versioning;
+  requires static org.osgi.annotation.bundle;
+
   requires com.io7m.ieee754b16.core;
 
   exports com.io7m.ieee754b16.documentation;
