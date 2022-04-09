@@ -35,9 +35,9 @@
         <c:change date="2014-06-30T00:00:00+00:00" summary="Initial version"/>
       </c:changes>
     </c:release>
-    <c:release date="2022-04-09T13:45:11+00:00" is-open="true" ticket-system="com.github.io7m.ieee754b16" version="3.0.0">
+    <c:release date="2022-04-09T13:49:36+00:00" is-open="false" ticket-system="com.github.io7m.ieee754b16" version="3.0.0">
       <c:changes>
-        <c:change date="2022-04-09T13:45:11+00:00" summary="Require JDK 17"/>
+        <c:change date="2022-04-09T00:00:00+00:00" summary="Require JDK 17"/>
       </c:changes>
     </c:release>
   </c:releases>
