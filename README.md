@@ -7,9 +7,9 @@ ieee754b16
 
 ![ieee754b16](./src/site/resources/ieee754b16.jpg?raw=true)
 
-| JVM             | Platform | Status |
-|-----------------|----------|--------|
-| OpenJDK LTS     | Linux    | [![Build (OpenJDK LTS, Linux)](https://img.shields.io/github/workflow/status/io7m/ieee754b16/main-openjdk_lts-linux)](https://github.com/io7m/ieee754b16/actions?query=workflow%3Amain-openjdk_lts-linux) |
-| OpenJDK Current | Linux    | [![Build (OpenJDK Current, Linux)](https://img.shields.io/github/workflow/status/io7m/ieee754b16/main-openjdk_current-linux)](https://github.com/io7m/ieee754b16/actions?query=workflow%3Amain-openjdk_current-linux)
-| OpenJDK Current | Windows  | [![Build (OpenJDK Current, Windows)](https://img.shields.io/github/workflow/status/io7m/ieee754b16/main-openjdk_current-windows)](https://github.com/io7m/ieee754b16/actions?query=workflow%3Amain-openjdk_current-windows)
-
+| JVM | Platform | Status |
+|-----|----------|--------|
+| OpenJDK (Temurin) Current | Linux | [![Build (OpenJDK (Temurin) Current, Linux)](https://img.shields.io/github/workflow/status/io7m/ieee754b16/main.linux.temurin.current)](https://github.com/io7m/ieee754b16/actions?query=workflow%3Amain.linux.temurin.current)|
+| OpenJDK (Temurin) LTS | Linux | [![Build (OpenJDK (Temurin) LTS, Linux)](https://img.shields.io/github/workflow/status/io7m/ieee754b16/main.linux.temurin.lts)](https://github.com/io7m/ieee754b16/actions?query=workflow%3Amain.linux.temurin.lts)|
+| OpenJDK (Temurin) Current | Windows | [![Build (OpenJDK (Temurin) Current, Windows)](https://img.shields.io/github/workflow/status/io7m/ieee754b16/main.windows.temurin.current)](https://github.com/io7m/ieee754b16/actions?query=workflow%3Amain.windows.temurin.current)|
+| OpenJDK (Temurin) LTS | Windows | [![Build (OpenJDK (Temurin) LTS, Windows)](https://img.shields.io/github/workflow/status/io7m/ieee754b16/main.windows.temurin.lts)](https://github.com/io7m/ieee754b16/actions?query=workflow%3Amain.windows.temurin.lts)|
