@@ -8,12 +8,12 @@
   <parent>
     <groupId>com.io7m.primogenitor</groupId>
     <artifactId>com.io7m.primogenitor.full</artifactId>
-    <version>7.0.0</version>
+    <version>8.2.0</version>
   </parent>
 
   <groupId>com.io7m.ieee754b16</groupId>
   <artifactId>com.io7m.ieee754b16</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.0.1</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.ieee754b16</name>
@@ -22,24 +22,26 @@
 
   <modules>
     <module>com.io7m.ieee754b16.core</module>
-    <module>com.io7m.ieee754b16.documentation</module>
+    <module>com.io7m.ieee754b16.tests</module>
   </modules>
 
   <properties>
+    <!-- Configuration. -->
     <io7m.api.previousVersion>3.0.0</io7m.api.previousVersion>
+    <io7m.java.targetJavaVersion>17</io7m.java.targetJavaVersion>
   </properties>
 
   <licenses>
     <license>
-      <name>ISC License</name>
-      <url>https://io7m.com/license/isc.txt</url>
+      <name>ISC</name>
+      <url>https://www.io7m.com/license/isc.txt</url>
     </license>
   </licenses>
 
   <scm>
-    <url>https://github.com/io7m/ieee754b16</url>
-    <connection>scm:git:https://github.com/io7m/ieee754b16</connection>
-    <developerConnection>scm:git:https://github.com/io7m/ieee754b16</developerConnection>
+    <url>https://www.github.com/io7m-com/ieee754b16</url>
+    <connection>scm:git:https://www.github.com/io7m-com/ieee754b16</connection>
+    <developerConnection>scm:git:https://www.github.com/io7m-com/ieee754b16</developerConnection>
   </scm>
 
   <developers>
@@ -47,12 +49,12 @@
       <id>io7m</id>
       <name>io7m</name>
       <email>code@io7m.com</email>
-      <url>https://io7m.com</url>
+      <url>https://www.io7m.com</url>
     </developer>
   </developers>
 
   <issueManagement>
-    <url>https://github.com/io7m/ieee754b16/issues</url>
+    <url>https://www.github.com/io7m-com/ieee754b16/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
 
@@ -64,13 +66,17 @@
     </site>
     <repository>
       <id>sonatype-nexus-staging</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
+    <snapshotRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <ciManagement>
     <system>GitHub Actions</system>
-    <url>https://github.com/ieee754b16/actions</url>
+    <url>https://www.github.com/io7m-com/ieee754b16/actions</url>
   </ciManagement>
 
   <prerequisites>
@@ -82,13 +88,13 @@
       <dependency>
         <groupId>com.io7m.junreachable</groupId>
         <artifactId>com.io7m.junreachable.core</artifactId>
-        <version>4.0.0</version>
+        <version>4.0.2</version>
       </dependency>
 
       <dependency>
         <groupId>com.io7m.primogenitor</groupId>
         <artifactId>com.io7m.primogenitor.support</artifactId>
-        <version>7.0.0</version>
+        <version>8.2.0</version>
       </dependency>
 
       <dependency>
@@ -118,13 +124,6 @@
   <build>
     <pluginManagement>
       <plugins>
-        <!-- jstructural plugin for generating documentation. -->
-        <plugin>
-          <groupId>com.io7m.jstructural</groupId>
-          <artifactId>io7m-jstructural-maven-plugin</artifactId>
-          <version>5.0.0</version>
-        </plugin>
-
         <!-- Spot bugs -->
         <plugin>
           <groupId>com.github.spotbugs</groupId>

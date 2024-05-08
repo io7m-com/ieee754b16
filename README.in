@@ -1,0 +1,29 @@
+
+## ieee754b16
+
+Java functions to convert to and from the [IEEE754](https://en.wikipedia.org/wiki/IEEE_754)
+`binary16` type.
+
+## Features
+
+* Conversion between `double`/`float` and `binary16` values.
+* High coverage test suite (100%, minus an unreachable private constructor).
+* [OSGi-ready](https://www.osgi.org/)
+* [JPMS-ready](https://en.wikipedia.org/wiki/Java_Platform_Module_System)
+* ISC license.
+
+## Usage
+
+The package uses the `char` type to store values of the `binary16` type.
+To convert a double-precision value `32.0` to `binary16` format: 
+
+```
+final char k = Binary16.packDouble(32.0);
+```
+
+To unpack values from the `binary16` format:
+
+```
+final double r = Binary16.unpackDouble(k);
+```
+
