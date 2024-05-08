@@ -13,7 +13,7 @@
 
   <groupId>com.io7m.ieee754b16</groupId>
   <artifactId>com.io7m.ieee754b16</artifactId>
-  <version>4.0.0-SNAPSHOT</version>
+  <version>3.0.1-SNAPSHOT</version>
 
   <packaging>pom</packaging>
   <name>com.io7m.ieee754b16</name>
@@ -26,14 +26,15 @@
   </modules>
 
   <properties>
+    <!-- Configuration. -->
     <io7m.api.previousVersion>3.0.0</io7m.api.previousVersion>
-    <io7m.java.targetJavaVersion>21</io7m.java.targetJavaVersion>
+    <io7m.java.targetJavaVersion>17</io7m.java.targetJavaVersion>
   </properties>
 
   <licenses>
     <license>
       <name>ISC</name>
-      <url>https://io7m.com/license/isc.txt</url>
+      <url>https://www.io7m.com/license/isc.txt</url>
     </license>
   </licenses>
 
@@ -48,7 +49,7 @@
       <id>io7m</id>
       <name>io7m</name>
       <email>code@io7m.com</email>
-      <url>https://io7m.com</url>
+      <url>https://www.io7m.com</url>
     </developer>
   </developers>
 
